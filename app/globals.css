@@ -1,0 +1,86 @@
+
+@import "./montserrat.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, * {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+:root {
+  --primary-green: #064417;
+  --accent-green: #064417;
+  --text: #1a1a1a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--text);
+  background: #ffffff;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(6, 68, 23, 0.22);
+}
+
+.container-pad {
+  @apply mx-auto w-full max-w-full px-5 sm:px-8 lg:px-10;
+}
+
+.section-pad {
+  @apply py-14 sm:py-16 lg:py-20;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded px-5 py-3 text-sm font-bold transition duration-200 focus:outline-none focus:ring-2 focus:ring-forest focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply btn bg-forest text-white shadow-sm hover:-translate-y-0.5 hover:bg-leaf hover:shadow-soft;
+}
+
+.btn-outline {
+  @apply btn border border-forest bg-white text-forest hover:-translate-y-0.5 hover:bg-forest hover:text-white;
+}
+
+.eyebrow-line {
+  margin-top: 0.75rem;
+  width: 134px;
+  height: 0;
+  border-top: 2px solid var(--2nd-color, #3F302D);
+}
+
+.hero-section {
+  @apply w-full h-screen relative overflow-hidden;
+}
+
+.hero-image-wrapper {
+  @apply absolute inset-0 w-full h-full;
+}
+
+.hero-image-wrapper img {
+  @apply object-cover w-full h-full;
+}
+
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
