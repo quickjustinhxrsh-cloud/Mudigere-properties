@@ -53,8 +53,8 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
     <>
       <section className="bg-white section-pad">
         <div className="container-pad text-center">
-          <h2 className="text-3xl font-black text-forest">Featured Properties</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-ink/70">
+          <h2 className="text-[28px] font-bold text-forest text-center" style={{ fontFamily: 'Montserrat', lineHeight: '100%', letterSpacing: '0%' }}>Featured Properties</h2>
+          <p className="mx-auto mt-4 max-w-3xl text-base leading-6 text-ink/70">
             Explore handpicked properties designed for investment, peaceful
             living, and future growth.
           </p>
@@ -75,7 +75,7 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
                   />
                 </div>
                 <div className="p-5">
-                  <h3 className="text-xl font-black text-forest">
+                  <h3 className="text-xl font-medium text-forest">
                     {property.title}
                   </h3>
                   <div className="mt-5 flex flex-col gap-3 sm:flex-row">

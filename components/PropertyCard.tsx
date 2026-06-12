@@ -42,11 +42,12 @@ export default function PropertyCard({ property, onView }: { property: Property;
 
         {/* Buttons - Kept at the bottom */}
         <div className="mt-auto grid grid-cols-2 gap-3 pt-4 border-t border-gray-100">
-          <Link href={`/properties/${property.slug}`}>
-            <button className="w-full py-2 border border-green-800 text-green-800 font-semibold rounded hover:bg-green-50 transition-colors">
-              View Property
-            </button>
-          </Link>
+          <button
+            onClick={() => onView?.(property)}
+            className="w-full py-2 border border-green-800 text-green-800 font-semibold rounded hover:bg-green-50 transition-colors"
+          >
+            View Property
+          </button>
           <Link href="/contact">
             <button className="w-full py-2 bg-green-900 text-white font-semibold rounded hover:bg-green-800 transition-colors">
               Contact Us

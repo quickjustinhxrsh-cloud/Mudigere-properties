@@ -54,10 +54,25 @@ export function ContactForm() {
         </div>
       ) : null}
       {errorMessage ? <div className="mb-5 rounded bg-red-50 px-5 py-4 text-sm font-black text-red-700">{errorMessage}</div> : null}
-      <form ref={formRef} onSubmit={handleSubmit} className="rounded-lg border border-black/15 bg-white p-5 shadow-soft sm:p-7">
-        <h2 className="text-2xl font-black text-forest">Send Us A Message</h2>
+      <form ref={formRef} onSubmit={handleSubmit} className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] sm:p-7" style={{ minHeight: 587 }}>
+        <h2
+          className="text-center text-forest"
+          style={{
+            width: 335,
+            height: 39,
+            fontFamily: 'Montserrat',
+            fontWeight: 700,
+            fontStyle: 'bold',
+            fontSize: 32,
+            lineHeight: '100%',
+            letterSpacing: '0%',
+            color: 'var(--main-Color, #064417)'
+          }}
+        >
+          Send Us A Message
+        </h2>
         <div className="eyebrow-line" />
-        <div className="mt-7 grid gap-4 sm:grid-cols-2">
+        <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field icon={User} name="full_name" placeholder="Full Name" required />
           <Field icon={Phone} name="phone" placeholder="Phone Number" required />
           <Field icon={Mail} name="email" placeholder="Email Address" type="email" required className="sm:col-span-2" />

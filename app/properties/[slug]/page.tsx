@@ -1,8 +1,6 @@
 import { getProperty } from "@/lib/properties";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import ContactModal from "@/components/ContactModal";
-import { useState } from "react";
 
 export default async function PropertyPage({ params }: { params: { slug: string } }) {
   const property = await getProperty(params.slug);

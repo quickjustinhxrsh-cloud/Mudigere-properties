@@ -19,26 +19,42 @@ export default function ContactPage() {
   return (
     <main className="page-enter">
       <section className="section-pad">
-        <div className="container-pad">
-          <h1 className="text-4xl font-black text-forest md:text-5xl">Contact Mudigere Properties</h1>
-          <p className="mt-5 max-w-4xl text-lg leading-8 text-ink/75">
-            We&apos;re here to help you find the perfect home, estate, villa, or investment property in Mudigere & Chikkamagaluru.
-          </p>
+        <div className="mx-auto w-full max-w-8xl px-5 sm:px-8 lg:px-10">
+          <h1
+            className="text-forest"
+            style={{
+              width: 839,
+              height: 77,
+              fontFamily: 'Montserrat',
+              fontWeight: 700,
+              fontStyle: 'bold',
+              fontSize: 54,
+              lineHeight: '100%',
+              letterSpacing: '0%',
+              color: 'var(--main-Color, #064417)'
+            }}
+          >
+            Contact Mudigere Properties
+          </h1>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <aside className="rounded-lg border border-black/15 bg-white p-5 shadow-soft sm:p-7">
-              <h2 className="text-2xl font-black text-forest">Get In Touch</h2>
-              <div className="eyebrow-line" />
+          <div className="mt-10 mx-auto flex w-full max-w-6xl flex-col gap-6 md:flex-row md:items-stretch md:justify-center md:gap-8">
+            <aside className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] md:w-[40%] sm:p-7" style={{ minHeight: 587 }}>
+              <h2 className="text-[32px] font-bold text-forest" style={{ fontFamily: 'Montserrat', lineHeight: '100%' }}>Get In Touch</h2>
               <div className="mt-7 grid gap-0">
-                {details.map(({ icon: Icon, text }) => (
-                  <div key={text} className="flex items-center gap-4 border-b border-black/20 py-5 last:border-b-0">
-                    <Icon className="h-5 w-5 shrink-0 text-forest" />
-                    <span className="text-sm font-medium text-ink/75">{text}</span>
+                {details.map(({ icon: Icon, text }, index) => (
+                  <div key={text}>
+                    <div className="flex items-center gap-4 py-5">
+                      <Icon className="h-5 w-5 shrink-0 text-forest" />
+                      <span className="text-sm font-medium text-ink/75">{text}</span>
+                    </div>
+                    {index < details.length - 1 ? <hr className="border-black" /> : null}
                   </div>
                 ))}
               </div>
             </aside>
-            <ContactForm />
+            <div className="w-full md:w-[60%]">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>

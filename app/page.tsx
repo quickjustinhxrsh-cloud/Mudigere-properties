@@ -53,9 +53,9 @@ export default async function HomePage() {
   return (
     <main className="page-enter bg-white text-black">
       <section className="relative min-h-screen h-screen overflow-hidden text-white">
-        <Image src={bannerImage} alt="Luxury hillside home in Mudigere" fill priority className="object-cover" sizes="100vw" />
-        <div className="container-pad relative flex min-h-screen flex-col items-start text-left">
-          <div className="max-w-2xl w-full py-20" style={{ marginTop: '319px' }}>
+        <div className="absolute inset-0" style={{ backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="container-pad relative flex min-h-screen flex-col items-start justify-center text-left">
+          <div className="max-w-2xl w-full py-20">
             <h1 className="text-[54px] font-bold leading-[100%] h-[139px]">
               Premium Properties in<br />
               Mudigere & Chikkamagaluru
@@ -77,10 +77,10 @@ export default async function HomePage() {
 
       <section className="section-pad">
         <div className="container-pad grid items-center gap-10 md:grid-cols-2">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+          <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] overflow-hidden rounded-lg">
             <Image src={images.hills} alt="Coffee hills around Mudigere" fill className="object-cover" sizes="(min-width: 768px) 50vw, 100vw" />
           </div>
-          <div>
+          <div className="flex h-full flex-col items-center justify-center text-center md:items-start md:text-left">
             <h2
               style={{
                 fontFamily: "Montserrat",
@@ -99,10 +99,10 @@ export default async function HomePage() {
               About Mudigere Properties
             </h2>
             <div className="eyebrow-line" />
-            <p className="mt-7 max-w-xl text-base leading-7 text-ink/75">
+            <p className="mt-7 max-w-xl text-lg leading-7 text-ink/75">
               Mudigere Properties helps you discover premium homes, estates, villas, and investment opportunities in Mudigere & Chikkamagaluru.
             </p>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink/75">
+            <p className="mt-4 max-w-xl text-lg leading-7 text-ink/75">
               From coffee estates to dream homes, we provide trusted property solutions with a simple and professional experience.
             </p>
             <Link href="/about" className="btn-primary mt-7">

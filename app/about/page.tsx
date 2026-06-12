@@ -49,7 +49,17 @@ export default async function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/78 to-white/10" />
         <div className="relative mx-auto flex min-h-[430px] w-full max-w-[1240px] items-center px-5 sm:min-h-[500px] sm:px-8 lg:min-h-[575px] lg:px-10">
           <div className="max-w-[650px] pb-6 pt-10">
-            <h1 className="text-[34px] font-extrabold leading-tight text-forest sm:text-[46px] lg:text-[54px]">
+            <h1
+              className="text-forest"
+              style={{
+                fontFamily: 'Montserrat',
+                fontWeight: 700,
+                fontStyle: 'bold',
+                fontSize: 54,
+                lineHeight: '100%',
+                letterSpacing: '0%'
+              }}
+            >
               About Mudigere Properties
             </h1>
             <p className="mt-7 max-w-[610px] text-[20px] font-medium leading-snug text-[#3F302D] sm:text-[26px] lg:text-[30px]">
@@ -61,7 +71,7 @@ export default async function AboutPage() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex h-11 min-w-[178px] items-center justify-center rounded-[4px] border border-forest bg-white px-6 text-sm font-bold text-forest transition hover:bg-forest hover:text-white"
+                className="inline-flex h-11 min-w-[178px] items-center justify-center rounded-[4px] border border-white/70 bg-white/20 px-6 text-sm font-bold text-forest shadow-sm backdrop-blur-sm transition hover:bg-white/35 hover:text-forest"
               >
                 Contact Us
               </Link>
