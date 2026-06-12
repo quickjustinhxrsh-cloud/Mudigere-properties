@@ -35,7 +35,18 @@ export default function PropertyCard({ property, onView }: { property: Property;
 
         <div className="flex flex-wrap gap-2 mb-4">
           {property.features.map((feature, index) => (
-            <span key={index} className="text-gray-700 text-xs px-1 py-1 rounded-full">
+            <span
+              key={index}
+              className="text-gray-700 px-1 py-1 rounded-full"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontStyle: "normal",
+                fontSize: "14px",
+                lineHeight: "16px",
+                letterSpacing: "0%",
+              }}
+            >
               {feature}
             </span>
           ))}
