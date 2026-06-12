@@ -84,10 +84,31 @@ export default async function AboutPage() {
         <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
           <div className="grid gap-9 lg:grid-cols-[0.9fr_1fr] lg:items-start lg:gap-16">
             <div className="max-w-[560px]">
-              <p className="text-[18px] font-extrabold uppercase leading-none text-forest sm:text-[20px]">
+              <p
+                className="text-forest"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontWeight: 700,
+                  fontStyle: "bold",
+                  fontSize: "24px",
+                  lineHeight: "100%",
+                  letterSpacing: "0%",
+                  textTransform: "uppercase",
+                }}
+              >
                 Who We Are
               </p>
-              <h2 className="mt-5 text-[28px] font-extrabold leading-tight text-[#3F302D] sm:text-[34px]">
+              <h2
+                className="mt-5 text-[#3F302D]"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontWeight: 700,
+                  fontStyle: "bold",
+                  fontSize: "32px",
+                  lineHeight: "100%",
+                  letterSpacing: "0%",
+                }}
+              >
                 Building Trust.
                 <br />
                 Creating Value.
@@ -109,7 +130,17 @@ export default async function AboutPage() {
           </div>
 
           <div className="mt-9">
-            <h3 className="text-[18px] font-extrabold leading-none text-forest sm:text-[20px]">
+            <h3
+              className="text-forest"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 600,
+                fontStyle: "normal",
+                fontSize: "24px",
+                lineHeight: "100%",
+                letterSpacing: "0%",
+              }}
+            >
               We specialize in:
             </h3>
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -148,17 +179,49 @@ export default async function AboutPage() {
               </div>
 
               <div className="self-center">
-                <p className="text-[18px] font-extrabold uppercase leading-none text-forest sm:text-[20px]">
+                <p
+                  className="text-forest"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 700,
+                    fontStyle: "bold",
+                    fontSize: "24px",
+                    lineHeight: "100%",
+                    letterSpacing: "0%",
+                    textTransform: "uppercase",
+                  }}
+                >
                   Meet The Founder
                 </p>
-                <h2 className="mt-4 text-[26px] font-extrabold leading-tight text-[#3F302D] sm:text-[32px]">
+                <h2
+                  className="mt-4 text-[#3F302D]"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 700,
+                    fontStyle: "bold",
+                    fontSize: "32px",
+                    lineHeight: "100%",
+                    letterSpacing: "0%",
+                  }}
+                >
                   Mrs. SHILPA ARUN
                 </h2>
                 <div className="mt-6 grid gap-5 text-[17px] font-medium leading-snug text-[#3F302D] sm:text-[21px]">
                   <p>
                     With over{" "}
-                    <span className="font-extrabold">8+ years of experience in the real estate industry,</span> she has
-                    helped clients discover trusted properties across Malnad Region.
+                    <span
+                      style={{
+                        fontFamily: "Montserrat, sans-serif",
+                        fontWeight: 700,
+                        fontStyle: "bold",
+                        fontSize: "22px",
+                        lineHeight: "100%",
+                        letterSpacing: "0%",
+                      }}
+                    >
+                      8+ years of experience in the real estate industry,
+                    </span>{" "}
+                    she has helped clients discover trusted properties across Malnad Region.
                   </p>
                   <p>
                     Her deep understanding of the local market, commitment to transparency, and passion for helping
@@ -177,9 +240,18 @@ export default async function AboutPage() {
                 {stats.map((stat, index) => (
                   <div
                     key={stat}
-                    className={`flex min-h-[54px] items-center justify-center px-4 text-center text-[17px] font-extrabold leading-tight text-forest sm:text-[18px] lg:text-[20px] ${
+                    className={`flex min-h-[54px] items-center justify-center px-4 text-center text-forest ${
                       index < stats.length - 1 ? "lg:border-r lg:border-[#a79f9b]" : ""
                     }`}
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontWeight: 700,
+                      fontStyle: "bold",
+                      fontSize: "22px",
+                      lineHeight: "100%",
+                      letterSpacing: "0%",
+                      textAlign: "center",
+                    }}
                   >
                     {stat}
                   </div>
@@ -192,7 +264,17 @@ export default async function AboutPage() {
 
       <section className="bg-white pb-16 sm:pb-20 lg:pb-[82px]">
         <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
-          <h2 className="text-[26px] font-extrabold leading-tight text-forest sm:text-[32px]">
+          <h2
+            className="text-forest"
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 700,
+              fontStyle: "bold",
+              fontSize: "32px",
+              lineHeight: "100%",
+              letterSpacing: "0%",
+            }}
+          >
             Why Invest in Malnad Region
           </h2>
           <div className="mt-9 grid gap-6 md:grid-cols-2">
@@ -211,7 +293,19 @@ export default async function AboutPage() {
 
       <section className="bg-[#f8faf8] py-16 sm:py-20 lg:py-[86px]">
         <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
-          <h2 className="text-[28px] font-extrabold leading-tight text-forest sm:text-[34px]">Our Vision</h2>
+          <h2
+            className="text-forest"
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 700,
+              fontStyle: "bold",
+              fontSize: "32px",
+              lineHeight: "100%",
+              letterSpacing: "0%",
+            }}
+          >
+            Our Vision
+          </h2>
           <p className="mt-6 max-w-[1260px] text-[17px] font-medium leading-snug text-[#3F302D] sm:text-[20px]">
             To create a trusted real estate experience by connecting people with premium properties that combine
             nature, comfort, and investment value.

@@ -1,4 +1,5 @@
 "use client";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Property } from "@/lib/properties";
@@ -28,13 +29,13 @@ export default function PropertyCard({ property, onView }: { property: Property;
         </div>
 
         <div className="flex items-center text-gray-500 text-sm mb-3">
-          <span className="material-icons text-base mr-1">location_on</span>
+          <MapPin className="mr-1 h-4 w-4" />
           {property.location}
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
           {property.features.map((feature, index) => (
-            <span key={index} className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">
+            <span key={index} className="text-gray-700 text-xs px-1 py-1 rounded-full">
               {feature}
             </span>
           ))}
