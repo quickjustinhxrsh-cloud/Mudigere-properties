@@ -181,73 +181,11 @@ export function PropertyForm({
       <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
         <div className="grid gap-5">
           <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-base font-black">Property details</h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-2 sm:col-span-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Title</span>
-                <input value={form.title} onChange={(event) => setField("title", event.target.value)} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
-              </label>
+            <h2 className="text-base font-black">Description</h2>
+            <div className="mt-5 grid gap-4">
               <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Slug</span>
-                <input value={form.slug} onChange={(event) => setField("slug", event.target.value)} placeholder="auto-generated" className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" />
-              </label>
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Price</span>
-                <input value={form.price} onChange={(event) => setField("price", event.target.value)} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
-              </label>
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Location</span>
-                <input value={form.location} onChange={(event) => setField("location", event.target.value)} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
-              </label>
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Type</span>
-                <select value={form.type} onChange={(event) => setField("type", event.target.value)} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950">
-                  {["Villa", "House", "Coffee Estate", "Farmland", "Plot", "Commercial"].map((type) => (
-                    <option key={type}>{type}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Bedrooms</span>
-                <input type="number" min="0" value={form.bedrooms ?? ""} onChange={(event) => setField("bedrooms", event.target.value ? Number(event.target.value) : null)} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" />
-              </label>
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Bathrooms</span>
-                <input type="number" min="0" value={form.bathrooms ?? ""} onChange={(event) => setField("bathrooms", event.target.value ? Number(event.target.value) : null)} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" />
-              </label>
-              <label className="grid gap-2 sm:col-span-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Area</span>
-                <input value={form.area} onChange={(event) => setField("area", event.target.value)} placeholder="3500 sqft or 15 Acres" className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" />
-              </label>
-              <label className="grid gap-2 sm:col-span-2">
                 <span className="text-xs font-black uppercase tracking-wide text-slate-500">Description</span>
-                <textarea value={form.description} onChange={(event) => setField("description", event.target.value)} rows={5} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" />
-              </label>
-              <label className="grid gap-2 sm:col-span-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Amenities</span>
-                <input value={amenitiesText} onChange={(event) => setAmenitiesText(event.target.value)} placeholder="Road access, Water source, Hill view" className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" />
-              </label>
-            </div>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Property Holder Contact Number</span>
-                <input
-                  type="tel"
-                  value={form.contact_phone || ""}
-                  onChange={(event) => setField("contact_phone", event.target.value)}
-                  placeholder="Optional"
-                  className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950"
-                />
-              </label>
-              <label className="grid gap-2">
-                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Property Holder Email Address</span>
-                <input
-                  type="email"
-                  value={form.contact_email || ""}
-                  onChange={(event) => setField("contact_email", event.target.value)}
-                  placeholder="Optional"
-                  className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950"
-                />
+                <textarea value={form.description} onChange={(event) => setField("description", event.target.value)} rows={8} className="rounded border border-slate-200 px-3 py-3 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
               </label>
             </div>
           </section>
@@ -261,11 +199,11 @@ export function PropertyForm({
             <input type="checkbox" checked={form.featured} onChange={(event) => setField("featured", event.target.checked)} className="h-5 w-5 accent-forest" />
           </label>
           <div className="mt-5 grid gap-3">
-            <button type="button" onClick={() => save("published")} disabled={!!saving || !form.title} className="inline-flex items-center justify-center gap-2 rounded bg-forest px-4 py-3 text-sm font-black text-white transition hover:bg-leaf disabled:cursor-not-allowed disabled:opacity-60">
+            <button type="button" onClick={() => save("published")} disabled={!!saving || !form.description} className="inline-flex items-center justify-center gap-2 rounded bg-forest px-4 py-3 text-sm font-black text-white transition hover:bg-leaf disabled:cursor-not-allowed disabled:opacity-60">
               <Send className="h-4 w-4" />
               {saving === "published" ? "Publishing..." : "Publish"}
             </button>
-            <button type="button" onClick={() => save("draft")} disabled={!!saving || !form.title} className="inline-flex items-center justify-center gap-2 rounded border border-slate-200 px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
+            <button type="button" onClick={() => save("draft")} disabled={!!saving || !form.description} className="inline-flex items-center justify-center gap-2 rounded border border-slate-200 px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
               <Save className="h-4 w-4" />
               {saving === "draft" ? "Saving..." : "Save Draft"}
             </button>

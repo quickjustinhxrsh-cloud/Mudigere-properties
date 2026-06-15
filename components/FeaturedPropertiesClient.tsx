@@ -52,20 +52,40 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
   return (
     <>
       <section className="bg-white section-pad">
-        <div className="container-pad text-center">
+        <div className="container-pad text-center lg:px-[150px]">
           <h2 className="text-[28px] font-bold text-forest text-center" style={{ fontFamily: 'Montserrat', lineHeight: '100%', letterSpacing: '0%' }}>Featured Properties</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base leading-6 text-ink/70">
-            Explore handpicked properties designed for investment, peaceful
-            living, and future growth.
+          <p 
+            className="mx-auto mt-4 w-full max-w-full text-center text-ink/70 hidden md:block whitespace-nowrap"
+            style={{
+              fontFamily: 'Montserrat',
+              fontWeight: 500,
+              fontSize: '22px',
+              lineHeight: '100%',
+              letterSpacing: '0%'
+            }}
+          >
+            Explore handpicked properties designed for investment, peaceful living, and future growth.
           </p>
-          <div className="mt-9 grid gap-6 md:grid-cols-3">
+          <p 
+            className="mx-auto mt-4 w-full max-w-full text-center text-ink/70 md:hidden"
+            style={{
+              fontFamily: 'Montserrat',
+              fontWeight: 500,
+              fontSize: '22px',
+              lineHeight: '100%',
+              letterSpacing: '0%'
+            }}
+          >
+            Explore handpicked properties designed for investment, peaceful living, and future growth.
+          </p>
+          <div className="mt-9 grid gap-6 md:grid-cols-3 w-full">
             {properties.map((property) => (
               <article
                 key={property.id}
-                className="overflow-hidden border border-black/10 bg-white shadow-soft transition-all duration-200 hover:shadow-md"
+                className="overflow-hidden border border-black/10 bg-white shadow-soft transition-all duration-200 hover:shadow-md flex flex-col w-full lg:h-[535px]"
                 style={{ borderRadius: '20px' }}
               >
-                <div className="relative aspect-[4/3]" style={{ borderRadius: '20px', overflow: 'hidden' }}>
+                <div className="relative w-full h-[300px] flex-shrink-0" style={{ borderRadius: '20px', overflow: 'hidden' }}>
                   <Image
                     src={property.image}
                     alt={property.title}
@@ -74,16 +94,31 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
                     sizes="(min-width: 768px) 33vw, 100vw"
                   />
                 </div>
-                <div className="p-5">
-                  <h3 className="text-xl font-medium text-forest">
+                <div className="p-5 flex-1 flex flex-col">
+                  <h3 
+                    className="font-bold text-forest text-center mx-auto"
+                    style={{
+                      fontFamily: 'Montserrat',
+                      fontSize: '28px',
+                      lineHeight: '100%',
+                      marginTop: '57px', // 377px top - 300px image - 20px padding
+                      width: '237px',
+                      height: '33px'
+                    }}
+                  >
                     {property.title}
                   </h3>
-                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <div className="flex w-full">
                     <Link
                       href="/properties"
-                      className="btn-primary flex-1 text-center"
+                      className="btn-primary flex items-center justify-center mx-auto"
+                      style={{
+                        marginTop: '30px', 
+                        width: '327px',
+                        height: '50px'
+                      }}
                     >
-                      Explore Properties
+                      Explore properties
                     </Link>
                   </div>
                 </div>

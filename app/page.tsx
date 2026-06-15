@@ -54,33 +54,33 @@ export default async function HomePage() {
     <main className="page-enter bg-white text-black">
       <section className="relative min-h-screen h-screen overflow-hidden text-white">
         <div className="absolute inset-0" style={{ backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="container-pad relative flex min-h-screen flex-col items-start justify-center text-left">
-          <div className="max-w-2xl w-full py-20">
-            <h1 className="text-[54px] font-bold leading-[100%] h-[139px]">
-              Premium Properties in<br />
-              Mudigere & Chikkamagaluru
+        <div className="container-pad relative flex min-h-screen flex-col items-start justify-center text-left lg:px-[150px]">
+          <div className="w-full">
+            <h1 className="w-full max-w-[931px] text-[54px] lg:text-[64px] font-bold leading-tight text-white m-0">
+              Premium Properties in<br className="hidden md:inline" /> <span className="whitespace-nowrap">Mudigere & Chikkamagaluru</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg font-medium leading-8 text-white/92 md:text-xl">
+            <p className="mt-[30px] w-full max-w-[1001px] text-lg lg:text-[24px] font-medium leading-normal text-white/92">
               Discover premium homes, coffee estates, villas, and investment properties surrounded by nature and peaceful living.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/properties" className="btn bg-white text-forest hover:-translate-y-0.5 hover:bg-white/90">
-                Explore Properties
+            <div className="mt-8 flex flex-wrap gap-[22px]">
+              <Link href="/properties" className="btn bg-white text-forest hover:-translate-y-0.5 hover:bg-white/90 w-[239px] h-[50px]">
+                Explore properties
               </Link>
-              <Link href="/contact" className="btn border border-white bg-transparent text-white hover:-translate-y-0.5 hover:bg-white hover:text-forest">
-                Contact Us
+              <Link href="/contact" className="btn border border-white bg-transparent text-white hover:-translate-y-0.5 hover:bg-white hover:text-forest w-[239px] h-[50px]">
+                Contact us
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-pad">
-        <div className="container-pad grid items-center gap-10 md:grid-cols-2">
-          <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] overflow-hidden rounded-lg">
+      <section className="section-pad lg:pl-[150px]">
+        <div className="flex flex-col lg:flex-row items-stretch w-full max-w-full px-5 sm:px-8 lg:px-0">
+          <div className="relative w-full lg:w-[781px] h-[350px] lg:h-[521px] flex-shrink-0 overflow-hidden rounded-lg">
             <Image src={images.hills} alt="Coffee hills around Mudigere" fill className="object-cover" sizes="(min-width: 768px) 50vw, 100vw" />
           </div>
-          <div className="flex h-full flex-col items-center justify-center text-center md:items-start md:text-left">
+          <div className="flex flex-1 items-center justify-center py-10 lg:py-0 px-5 lg:px-10">
+            <div className="flex w-full max-w-xl flex-col items-center justify-center text-center lg:items-start lg:text-left">
             <h2
               style={{
                 fontFamily: "Montserrat",
@@ -108,6 +108,7 @@ export default async function HomePage() {
             <Link href="/about" className="btn-primary mt-7">
               Learn More
             </Link>
+            </div>
           </div>
         </div>
       </section>

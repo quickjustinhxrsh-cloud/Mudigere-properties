@@ -136,7 +136,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
 
   return (
     <>
-      <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between" style={{ paddingLeft: '150px' }}>
         <label className="relative block w-full max-w-xl">
           <span className="sr-only">Search Properties</span>
           <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-forest" />
@@ -152,7 +152,14 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
 
       {error ? <p className="mt-5 rounded bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{error}</p> : null}
 
-      <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-7 w-full" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '20px',
+        paddingLeft: '150px',
+        paddingRight: '20px',
+        boxSizing: 'border-box'
+      }}>
         {filtered.length ? (
           filtered.slice((currentPage - 1) * propertiesPerPage, currentPage * propertiesPerPage).map((property) => (
             <PropertyCard key={property.id} property={property} onView={openProperty} />
