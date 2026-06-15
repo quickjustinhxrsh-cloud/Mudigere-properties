@@ -54,16 +54,13 @@ export function CtaBanner({
   }
   const sectionStyle: React.CSSProperties = {
     display: "flex",
-    justifyContent: text ? "space-between" : "center",
     alignItems: "center",
-    padding: "60px 80px",
     width: "100%",
     boxSizing: "border-box",
     background: `linear-gradient(rgba(6, 68, 23, 0.5), rgba(6, 68, 23, 0.5)), url('${imageUrl}')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     minHeight: "200px",
-    gap: text ? "60px" : "40px",
     flexWrap: "wrap"
   };
 
@@ -74,18 +71,16 @@ export function CtaBanner({
     fontSize: text ? "2.2rem" : "2rem",
     margin: 0,
     textShadow: "0 2px 4px rgba(0,0,0,0.2)",
-    textAlign: text ? "left" : "left",
-    flex: text ? 1 : "0 1 auto",
-    minWidth: text ? "auto" : "auto"
+    flex: 1
   };
 
   const containerStyle: React.CSSProperties = {
     display: "flex",
-    flexDirection: text ? "row" : "row",
+    flexDirection: "row",
     alignItems: "center",
-    gap: text ? "0" : "60px",
+    gap: "60px",
     width: "100%",
-    justifyContent: text ? "space-between" : "space-between"
+    justifyContent: "space-between"
   };
 
   const textContainerStyle: React.CSSProperties = {
@@ -120,10 +115,10 @@ export function CtaBanner({
   };
 
   return (
-    <section style={sectionStyle}>
+    <section style={sectionStyle} className="py-[60px] px-5 sm:px-8 lg:px-[150px]">
       <div style={containerStyle}>
         {/* Heading and optional text */}
-        <div style={{ flex: text ? 1 : "0 1 auto", display: "flex", flexDirection: "column", gap: "15px" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "15px" }}>
           <h1 style={headingStyle}>{title}</h1>
           {text && (
             <div style={textContainerStyle}>

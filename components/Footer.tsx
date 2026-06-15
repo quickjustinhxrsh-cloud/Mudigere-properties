@@ -21,7 +21,7 @@ export function Footer({ logo }: { logo?: string }) {
             Premium Properties Surrounded by Nature.
           </p>
         </div>
-        <div className="flex h-[184px] w-[390px] flex-col items-start justify-center text-left md:items-start md:pr-[50px] md:border-r md:border-white/90">
+        <div className="flex h-[184px] w-full flex-col items-start justify-center text-left md:items-start md:pr-6 md:border-r md:border-white/90">
           <h3 className="text-base font-medium tracking-wide">Quick Links</h3>
           <ul className="mt-4 flex w-full max-w-[180px] flex-col items-start gap-2 text-sm text-white/85">
             {[
@@ -37,7 +37,7 @@ export function Footer({ logo }: { logo?: string }) {
             ))}
           </ul>
         </div>
-        <div className="flex h-[184px] w-[390px] flex-col items-start justify-center text-left md:items-start md:pl-6">
+        <div className="flex h-[184px] w-full flex-col items-start justify-center text-left md:items-start md:pl-4">
           <h3 className="text-base font-medium tracking-wide">Contact Details</h3>
           <div className="mt-4 flex w-full flex-col items-start gap-3 text-sm text-white/85">
             <p className="flex items-center justify-start gap-3 text-left">

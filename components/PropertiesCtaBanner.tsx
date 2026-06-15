@@ -9,7 +9,6 @@ export function PropertiesCtaBanner() {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "60px 80px",
     width: "100%",
     boxSizing: "border-box",
     minHeight: "300px",
@@ -62,7 +61,7 @@ export function PropertiesCtaBanner() {
   };
 
   return (
-    <section style={sectionStyle}>
+    <section style={sectionStyle} className="py-[60px] px-5 sm:px-8 lg:px-[150px]">
       <div style={contentLeftStyle}>
         <h2 style={headingStyle}>Can&apos;t Find What You&apos;re Looking For?</h2>
         <p style={textStyle}>Our team can help you find the perfect property that matches your needs.</p>

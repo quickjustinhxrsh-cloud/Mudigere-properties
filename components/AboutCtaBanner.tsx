@@ -12,14 +12,10 @@ export function AboutCtaBanner() {
     backgroundPosition: "center",
     display: "flex",
     alignItems: "center",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    padding: "40px 20px"
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
   };
 
   const containerStyle: React.CSSProperties = {
-    maxWidth: "1100px",
-    margin: "0 auto",
-    width: "100%",
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
@@ -75,8 +71,8 @@ export function AboutCtaBanner() {
   };
 
   return (
-    <section style={sectionStyle}>
-      <div style={containerStyle}>
+    <section style={sectionStyle} className="py-10 px-5 lg:px-[150px]">
+      <div style={containerStyle} className="w-full max-w-full">
         {/* Left: Heading */}
         <div style={leftStyle}>
          <h2 style={headingStyle}>Let&apos;s Find Your Perfect Property</h2>

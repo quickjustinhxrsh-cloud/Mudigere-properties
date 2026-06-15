@@ -47,7 +47,7 @@ export default async function AboutPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/78 to-white/10" />
-        <div className="relative mx-auto flex min-h-[430px] w-full max-w-[1240px] items-center px-5 sm:min-h-[500px] sm:px-8 lg:min-h-[575px] lg:px-10">
+        <div className="relative flex min-h-[430px] w-full max-w-full items-center px-5 sm:min-h-[500px] sm:px-8 lg:min-h-[575px] lg:px-[150px]">
           <div className="max-w-[650px] pb-6 pt-10">
             <h1
               className="text-forest"
@@ -81,7 +81,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="bg-white py-14 sm:py-16 lg:py-[72px]">
-        <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
+        <div className="w-full max-w-full px-5 sm:px-8 lg:px-[150px]">
           <div className="grid gap-9 lg:grid-cols-[0.9fr_1fr] lg:items-start lg:gap-16">
             <div className="max-w-[560px]">
               <p
@@ -165,7 +165,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="bg-white pb-14 sm:pb-16 lg:pb-[72px]">
-        <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
+        <div className="w-full max-w-full px-5 sm:px-8 lg:px-[150px]">
           <div className="rounded-[12px] bg-[#f8faf8] px-5 py-7 sm:px-8 lg:px-9">
             <div className="grid gap-7 lg:grid-cols-[240px_1fr] lg:gap-9">
               <div className="relative mx-auto aspect-[3/4] w-full max-w-[240px] overflow-hidden rounded-[12px] lg:mx-0">
@@ -263,7 +263,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="bg-white pb-16 sm:pb-20 lg:pb-[82px]">
-        <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
+        <div className="w-full max-w-full px-5 sm:px-8 lg:px-[150px]">
           <h2
             className="text-forest"
             style={{
@@ -292,7 +292,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="bg-[#f8faf8] py-16 sm:py-20 lg:py-[86px]">
-        <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10">
+        <div className="w-full max-w-full px-5 sm:px-8 lg:px-[150px]">
           <h2
             className="text-forest"
             style={{
