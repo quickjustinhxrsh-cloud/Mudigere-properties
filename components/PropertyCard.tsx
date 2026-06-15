@@ -9,11 +9,11 @@ export default function PropertyCard({ property, onView }: { property: Property;
 
   return (
     <article
-      className="flex h-[408px] w-full flex-col overflow-hidden rounded-[16px] border border-[#E7EFE8] bg-white shadow-[0_8px_24px_rgba(18,66,23,0.08)] transition-transform duration-200 hover:-translate-y-0.5"
+      className="flex h-full min-h-[408px] w-full flex-col overflow-hidden rounded-[16px] border border-[#E7EFE8] bg-white shadow-[0_8px_24px_rgba(18,66,23,0.08)] transition-transform duration-200 hover:-translate-y-0.5"
       onClick={() => onView?.(property)}
       style={{ cursor: onView ? "pointer" : "default", backgroundColor: "#FFFFFF" }}
     >
-      <div className="relative overflow-hidden rounded-[10px] w-full h-[209px]" style={{ height: 209 }}>
+      <div className="relative shrink-0 overflow-hidden rounded-[10px] w-full h-[209px]" style={{ height: 209 }}>
         <Image
           src={property.image || property.images?.[0] || ""}
           alt={property.title}
@@ -25,8 +25,8 @@ export default function PropertyCard({ property, onView }: { property: Property;
 
       <div className="flex flex-col gap-3 p-3 flex-grow">
         <h3
-          className="text-[20px] font-semibold text-[#2F2A28]"
-          style={{ fontFamily: "Montserrat, sans-serif", lineHeight: "1.2" }}
+          className="text-[20px] font-semibold text-[#2F2A28] line-clamp-2"
+          style={{ fontFamily: "Montserrat, sans-serif", lineHeight: "1.2", minHeight: "48px" }}
         >
           {property.title}
         </h3>
