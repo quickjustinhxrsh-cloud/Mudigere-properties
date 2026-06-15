@@ -71,7 +71,7 @@ export default async function AboutPage() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex h-11 min-w-[178px] items-center justify-center rounded-[4px] border border-white/70 bg-white/20 px-6 text-sm font-bold text-forest shadow-sm backdrop-blur-sm transition hover:bg-white/35 hover:text-forest"
+                className="inline-flex h-11 min-w-[178px] items-center justify-center rounded-[4px] border-2 border-[#064417] bg-transparent px-6 text-sm font-bold text-[#064417] shadow-sm transition hover:bg-[#064417]/10"
               >
                 Contact Us
               </Link>
