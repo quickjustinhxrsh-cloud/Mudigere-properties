@@ -9,16 +9,16 @@ export default function PropertyCard({ property, onView }: { property: Property;
 
   return (
     <article
-      className="flex h-[408px] w-[294px] shrink-0 flex-col overflow-hidden rounded-[16px] border border-[#E7EFE8] bg-white shadow-[0_8px_24px_rgba(18,66,23,0.08)] transition-transform duration-200 hover:-translate-y-0.5"
+      className="flex h-[408px] w-full flex-col overflow-hidden rounded-[16px] border border-[#E7EFE8] bg-white shadow-[0_8px_24px_rgba(18,66,23,0.08)] transition-transform duration-200 hover:-translate-y-0.5"
       onClick={() => onView?.(property)}
       style={{ cursor: onView ? "pointer" : "default", backgroundColor: "#FFFFFF" }}
     >
-      <div className="relative overflow-hidden rounded-[10px]" style={{ width: 294, height: 209 }}>
+      <div className="relative overflow-hidden rounded-[10px] w-full h-[209px]" style={{ height: 209 }}>
         <Image
           src={property.image || property.images?.[0] || ""}
           alt={property.title}
           fill
-          sizes="294px"
+          sizes="(max-width: 768px) 100vw, 400px"
           className="object-cover"
         />
       </div>

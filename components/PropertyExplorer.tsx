@@ -136,7 +136,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
 
   return (
     <>
-      <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between" style={{ paddingLeft: '150px' }}>
+      <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between" style={{ paddingLeft: '150px', paddingRight: '150px', boxSizing: 'border-box' }}>
         <label className="relative block w-full max-w-xl">
           <span className="sr-only">Search Properties</span>
           <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-forest" />
@@ -155,9 +155,10 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
       <div className="mt-7 w-full" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '20px',
+        rowGap: '24px',
+        columnGap: '16px',
         paddingLeft: '150px',
-        paddingRight: '20px',
+        paddingRight: '150px',
         boxSizing: 'border-box'
       }}>
         {filtered.length ? (
@@ -177,9 +178,8 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={`px-3 py-2 rounded text-sm font-black transition ${
-                page === currentPage ? "bg-forest text-white" : "text-forest hover:bg-forest/10"
-              }`}
+              className={`px-3 py-2 rounded text-sm font-black transition ${page === currentPage ? "bg-forest text-white" : "text-forest hover:bg-forest/10"
+                }`}
             >
               {page}
             </button>
@@ -197,7 +197,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
             >
               <X className="h-5 w-5" />
             </button>
-            <div 
+            <div
               className="relative aspect-[16/10] bg-slate-950 flex items-center justify-center cursor-pointer select-none"
               onClick={togglePlayPause}
             >
@@ -276,18 +276,17 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
                   </p>
                 )}
               </div>
-              
+
               {/* Cropped Thumbnail Carousel */}
               <div className="flex items-center gap-2 overflow-x-auto py-2 px-1 max-w-full sm:max-w-[480px] scrollbar-thin scrollbar-thumb-forest/20 scrollbar-track-transparent">
                 {mediaItems.map((item, index) => (
                   <button
                     key={item.url + index}
                     onClick={() => setSlide(index)}
-                    className={`relative flex-shrink-0 h-12 w-20 rounded-md overflow-hidden border-2 transition-all ${
-                      slide === index
+                    className={`relative flex-shrink-0 h-12 w-20 rounded-md overflow-hidden border-2 transition-all ${slide === index
                         ? "border-forest ring-2 ring-forest/20 scale-105"
                         : "border-black/10 hover:border-forest/50"
-                    }`}
+                      }`}
                     aria-label={`Go to media ${index + 1}`}
                   >
                     {item.type === "video" ? (
