@@ -54,26 +54,28 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
       <section className="bg-white section-pad">
         <div className="container-pad text-center lg:px-[150px]">
           <h2 className="text-[28px] font-bold text-forest text-center" style={{ fontFamily: 'Montserrat', lineHeight: '100%', letterSpacing: '0%' }}>Featured Properties</h2>
-          <p 
-            className="mx-auto mt-4 w-full max-w-full text-center text-ink/70 hidden md:block whitespace-nowrap"
+          <p
+            className="mx-auto mt-4 w-full max-w-full text-center hidden md:block whitespace-nowrap"
             style={{
               fontFamily: 'Montserrat',
               fontWeight: 500,
               fontSize: '22px',
               lineHeight: '100%',
-              letterSpacing: '0%'
+              letterSpacing: '0%',
+              color: 'var(--2nd-color, #3F302D)'
             }}
           >
             Explore handpicked properties designed for investment, peaceful living, and future growth.
           </p>
           <p 
-            className="mx-auto mt-4 w-full max-w-full text-center text-ink/70 md:hidden"
+            className="mx-auto mt-4 w-full max-w-full text-center md:hidden"
             style={{
               fontFamily: 'Montserrat',
               fontWeight: 500,
               fontSize: '22px',
               lineHeight: '100%',
-              letterSpacing: '0%'
+              letterSpacing: '0%',
+              color: 'var(--2nd-color, #3F302D)'
             }}
           >
             Explore handpicked properties designed for investment, peaceful living, and future growth.

@@ -43,7 +43,7 @@ export function AboutCtaBanner() {
   };
 
   const textStyle: React.CSSProperties = {
-    fontSize: "1rem",
+    fontSize: "22px",
     lineHeight: "1.5",
     color: "#1f1f1f",
     margin: 0,

@@ -12,7 +12,7 @@ import { FeaturedPropertiesClient } from "@/components/FeaturedPropertiesClient"
 export const metadata: Metadata = {
   title: "Premium Properties in Mudigere & Chikkamagaluru",
   description:
-    "Discover premium homes, coffee estates, villas, and investment properties surrounded by nature and peaceful living."
+    "Discover premium coffee estates, villas, Resorts and Farmlands surrounded by nature."
 };
 
 const HouseIcon = () => (
@@ -60,7 +60,7 @@ export default async function HomePage() {
               Premium Properties in<br className="hidden md:inline" /> <span className="whitespace-nowrap">Mudigere & Chikkamagaluru</span>
             </h1>
             <p className="mt-[30px] w-full max-w-[1001px] text-lg lg:text-[24px] font-medium leading-normal text-white/92">
-              Discover premium homes, coffee estates, villas, and investment properties surrounded by nature and peaceful living.
+              Discover premium <strong>coffee estates, villas, Resorts and<br className="hidden md:inline" /> Farmlands</strong> surrounded by nature.
             </p>
             <div className="mt-8 flex flex-wrap gap-[22px]">
               <Link href="/properties" className="btn bg-white text-forest hover:-translate-y-0.5 hover:bg-white/90 w-[239px] h-[50px]">
@@ -99,10 +99,10 @@ export default async function HomePage() {
               About Mudigere Properties
             </h2>
             <div className="eyebrow-line" />
-            <p className="mt-7 max-w-xl text-lg leading-7 text-ink/75">
-              Mudigere Properties helps you discover premium homes, estates, villas, and investment opportunities in Mudigere & Chikkamagaluru.
+            <p className="mt-7 max-w-xl leading-7" style={{ color: 'var(--2nd-color, #3F302D)', fontSize: '22px' }}>
+              Mudigere Properties helps you discover premium Coffee estates, villas, Resorts and investment opportunities in Mudigere & Chikkamagaluru.
             </p>
-            <p className="mt-4 max-w-xl text-lg leading-7 text-ink/75">
+            <p className="mt-4 max-w-xl leading-7" style={{ color: 'var(--2nd-color, #3F302D)', fontSize: '22px' }}>
               From coffee estates to dream homes, we provide trusted property solutions with a simple and professional experience.
             </p>
             <Link href="/about" className="btn-primary mt-7">
@@ -131,7 +131,7 @@ export default async function HomePage() {
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-[18px] font-bold text-forest mb-[10px] leading-[1.2]">{title}</h3>
-                  <p className="text-sm leading-[1.5] text-ink/70 m-0">{text}</p>
+                  <p className="m-0 leading-[1.5]" style={{ fontSize: '16px', color: 'var(--2nd-color, #3F302D)' }}>{text}</p>
                 </div>
               </article>
             ))}

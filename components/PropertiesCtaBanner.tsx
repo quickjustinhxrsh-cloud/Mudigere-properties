@@ -32,7 +32,7 @@ export function PropertiesCtaBanner() {
   };
 
   const textStyle: React.CSSProperties = {
-    fontSize: "18px",
+    fontSize: "22px",
     lineHeight: "1.5",
     margin: 0,
     color: "rgba(255, 255, 255, 0.9)",
@@ -64,7 +64,7 @@ export function PropertiesCtaBanner() {
     <section style={sectionStyle} className="py-[60px] px-5 sm:px-8 lg:px-[150px]">
       <div style={contentLeftStyle}>
         <h2 style={headingStyle}>Can&apos;t Find What You&apos;re Looking For?</h2>
-        <p style={textStyle}>Our team can help you find the perfect property that matches your needs.</p>
+        <p style={textStyle}>Our team can help you find the perfect property that<br />matches your needs.</p>
       </div>
 
       <div style={contentRightStyle}>

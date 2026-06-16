@@ -17,8 +17,10 @@ export function Footer({ logo }: { logo?: string }) {
       <div className="container-pad grid gap-8 py-6 md:grid-cols-[1.15fr_0.8fr_1.05fr] md:items-stretch">
         <div className="flex h-full flex-col items-center justify-center text-center md:pr-6 md:border-r md:border-white/90">
           <Logo light src={logo || undefined} className="mx-auto h-28 w-auto object-contain" />
-          <p className="mt-5 max-w-xs text-center text-sm leading-6 text-white/85">
-            Premium Properties Surrounded by Nature.
+          <p className="mt-5 max-w-xs text-xl leading-6 text-white/85">
+            <span className="whitespace-nowrap">Premium Properties Surrounded</span>
+            <br />
+            by Nature.
           </p>
         </div>
         <div className="flex h-[184px] w-full flex-col items-start justify-center text-left md:items-start md:pr-6 md:border-r md:border-white/90">
