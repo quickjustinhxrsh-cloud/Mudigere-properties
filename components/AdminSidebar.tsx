@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Building2, Home, ImageIcon, LayoutDashboard, MessageSquare, PlusCircle, Settings, Image } from "lucide-react";
+import { Building2, Home, MessageSquare, PlusCircle, Settings, Image } from "lucide-react";
 
 const links = [
-  { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/properties", label: "Properties", icon: Building2 },
   { href: "/admin/add-property", label: "Add Property", icon: PlusCircle },
   { href: "/admin/leads", label: "Leads", icon: MessageSquare },
-  { href: "/admin/media", label: "Media Library", icon: ImageIcon },
   { href: "/admin/site-images", label: "Site Images", icon: Image },
   { href: "/admin/settings", label: "Settings", icon: Settings }
 ];
@@ -19,7 +17,7 @@ export function AdminSidebar() {
 
   return (
     <aside className="hidden min-h-screen w-72 border-r border-slate-200 bg-white px-4 py-5 text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-white lg:block">
-      <Link href="/admin/dashboard" className="flex items-center gap-3 rounded-lg px-3 py-2">
+      <Link href="/admin/properties" className="flex items-center gap-3 rounded-lg px-3 py-2">
         <span className="flex h-10 w-10 items-center justify-center rounded bg-forest text-white">
           <Home className="h-5 w-5" />
         </span>

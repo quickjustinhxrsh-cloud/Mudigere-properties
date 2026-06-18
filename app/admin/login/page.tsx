@@ -31,7 +31,7 @@ export default function AdminLoginPage() {
       return;
     }
 
-    router.replace("/admin/dashboard");
+    router.replace("/admin/properties");
   };
 
   return (

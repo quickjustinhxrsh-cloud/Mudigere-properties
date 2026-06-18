@@ -181,6 +181,24 @@ export function PropertyForm({
       <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
         <div className="grid gap-5">
           <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-base font-black">Basic Information</h2>
+            <div className="mt-5 grid gap-4">
+              <label className="grid gap-2">
+                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Property Name</span>
+                <input type="text" value={form.title} onChange={(event) => setField("title", event.target.value)} className="rounded border border-slate-200 px-3 py-2 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
+              </label>
+              <label className="grid gap-2">
+                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Location</span>
+                <input type="text" value={form.location} onChange={(event) => setField("location", event.target.value)} className="rounded border border-slate-200 px-3 py-2 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
+              </label>
+              <label className="grid gap-2">
+                <span className="text-xs font-black uppercase tracking-wide text-slate-500">Price</span>
+                <input type="text" value={form.price} onChange={(event) => setField("price", event.target.value)} placeholder="e.g., ₹50,00,000" className="rounded border border-slate-200 px-3 py-2 text-sm outline-none focus:border-forest dark:border-slate-700 dark:bg-slate-950" required />
+              </label>
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <h2 className="text-base font-black">Description</h2>
             <div className="mt-5 grid gap-4">
               <label className="grid gap-2">
@@ -194,16 +212,12 @@ export function PropertyForm({
 
         <aside className="h-fit rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <h2 className="text-base font-black">Publishing</h2>
-          <label className="mt-5 flex items-center justify-between gap-4 rounded border border-slate-200 p-3 text-sm font-bold dark:border-slate-800">
-            <span>Featured property</span>
-            <input type="checkbox" checked={form.featured} onChange={(event) => setField("featured", event.target.checked)} className="h-5 w-5 accent-forest" />
-          </label>
           <div className="mt-5 grid gap-3">
-            <button type="button" onClick={() => save("published")} disabled={!!saving || !form.description} className="inline-flex items-center justify-center gap-2 rounded bg-forest px-4 py-3 text-sm font-black text-white transition hover:bg-leaf disabled:cursor-not-allowed disabled:opacity-60">
+            <button type="button" onClick={() => save("published")} disabled={!!saving || !form.title || !form.location || !form.price || !form.description} className="inline-flex items-center justify-center gap-2 rounded bg-forest px-4 py-3 text-sm font-black text-white transition hover:bg-leaf disabled:cursor-not-allowed disabled:opacity-60">
               <Send className="h-4 w-4" />
               {saving === "published" ? "Publishing..." : "Publish"}
             </button>
-            <button type="button" onClick={() => save("draft")} disabled={!!saving || !form.description} className="inline-flex items-center justify-center gap-2 rounded border border-slate-200 px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
+            <button type="button" onClick={() => save("draft")} disabled={!!saving || !form.title || !form.location || !form.price} className="inline-flex items-center justify-center gap-2 rounded border border-slate-200 px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
               <Save className="h-4 w-4" />
               {saving === "draft" ? "Saving..." : "Save Draft"}
             </button>

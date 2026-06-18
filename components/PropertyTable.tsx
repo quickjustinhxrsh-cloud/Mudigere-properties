@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Edit3, Star, Trash2, X } from "lucide-react";
+import { Edit3, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PropertyForm } from "@/components/PropertyForm";
 import { deleteProperty, getProperties, type Property } from "@/lib/properties";
@@ -65,14 +65,13 @@ export function PropertyTable() {
               <th className="px-5 py-3">Location</th>
               <th className="px-5 py-3">Price</th>
               <th className="px-5 py-3">Status</th>
-              <th className="px-5 py-3">Featured</th>
               <th className="px-5 py-3 text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-5 py-8 text-center font-bold text-slate-500">Loading properties...</td>
+                <td colSpan={5} className="px-5 py-8 text-center font-bold text-slate-500">Loading properties...</td>
               </tr>
             ) : properties.length ? (
               properties.map((property) => (
@@ -95,7 +94,6 @@ export function PropertyTable() {
                       {property.status}
                     </span>
                   </td>
-                  <td className="px-5 py-4">{property.featured ? <Star className="h-4 w-4 fill-amber-400 text-amber-400" /> : <span className="text-slate-400">No</span>}</td>
                   <td className="px-5 py-4">
                     <div className="flex justify-end gap-2">
                       <button onClick={() => setEditing(property)} className="flex h-9 w-9 items-center justify-center rounded border border-slate-200 text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800" aria-label="Edit property">
@@ -110,7 +108,7 @@ export function PropertyTable() {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="px-5 py-8 text-center font-bold text-slate-500">No properties yet.</td>
+                <td colSpan={5} className="px-5 py-8 text-center font-bold text-slate-500">No properties yet.</td>
               </tr>
             )}
           </tbody>

@@ -1,220 +1,126 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { MediaUploader } from "@/components/MediaUploader";
-import { updateSettings, getSettings, type SiteSettings } from "@/lib/settings";
-import { AlertCircle, CheckCircle, Copy, Check } from "lucide-react";
-import Image from "next/image";
+import { useState } from "react";
+import { uploadMedia } from "@/lib/media";
+import { Copy, Check, UploadCloud } from "lucide-react";
 
-export default function AdminSiteImagesPage() {
-  const [settings, setSettings] = useState<SiteSettings | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
-  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+type UploadedImage = {
+  url: string;
+  name: string;
+  copied: boolean;
+};
 
-  useEffect(() => {
-    loadSettings();
-  }, []);
+export default function SiteImagesPage() {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
 
-  async function loadSettings() {
-    try {
-      const data = await getSettings();
-      setSettings(data);
-    } catch (error) {
-      console.error("Failed to load settings:", error);
-      setMessage({ type: "error", text: "Failed to load settings" });
-    } finally {
-      setLoading(false);
+  const handleUpload = async (files: FileList | null) => {
+    if (!files?.length) {
+      return;
     }
-  }
 
-  async function handleImageUpdate(field: keyof SiteSettings, imageUrl: string) {
-    if (!settings) return;
+    setUploading(true);
+    setError("");
 
     try {
-      setSaving(true);
-      const updated = { ...settings, [field]: imageUrl };
-      console.log("Updating settings with:", updated);
-      await updateSettings(updated);
-      setSettings(updated);
-      setMessage({ type: "success", text: `${field} updated successfully!` });
-      setTimeout(() => setMessage(null), 3000);
-    } catch (error) {
-      console.error("Failed to update image:", error);
-      setMessage({ type: "error", text: `Error: ${error instanceof Error ? error.message : "Unknown error"}` });
+      const uploaded = await uploadMedia(Array.from(files));
+      const imageFiles = uploaded.filter((item) => item.type === "image");
+      setUploadedImages((prev) => [
+        ...prev,
+        ...imageFiles.map((img) => ({ url: img.url, name: img.name, copied: false }))
+      ]);
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : "Upload failed.");
     } finally {
-      setSaving(false);
+      setUploading(false);
     }
-  }
+  };
 
-  function handleMediaUpload(media: { images: string[]; videos: string[] }) {
-    setUploadedImages(media.images);
-  }
-
-  function copyToClipboard(url: string) {
+  const copyToClipboard = (url: string, index: number) => {
     navigator.clipboard.writeText(url);
-    setCopiedUrl(url);
-    setTimeout(() => setCopiedUrl(null), 2000);
-  }
+    // Set copied on the item by index immediately (fast UI update)
+    setUploadedImages((prev) => prev.map((img, i) => (i === index ? { ...img, copied: true } : img)));
 
-  function setImageUrl(field: keyof SiteSettings, url: string) {
-    handleImageUpdate(field, url);
-  }
+    // After 2s, reset the copied flag by matching the URL so removals won't cause OOB errors
+    setTimeout(() => {
+      setUploadedImages((curr) => curr.map((img) => (img.url === url ? { ...img, copied: false } : img)));
+    }, 2000);
+  };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-forest"></div>
-          <p className="mt-4 text-slate-600">Loading settings...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const imageFields = [
-    { key: "home_banner_image", label: "Home Page Banner", description: "Hero banner image for the home page" },
-    { key: "about_banner_image", label: "About Page Banner", description: "Hero banner image for the about page" },
-    { key: "properties_banner_image", label: "Properties Page Banner", description: "Hero banner image for the properties page" },
-    { key: "home_about_image", label: "Home About Section Image", description: "Image for the about section on home page" },
-    { key: "cta_banner_image", label: "CTA Banner Image", description: "Call-to-action banner image" },
-    { key: "founder_image", label: "Founder Image", description: "Image of the founder/team member" }
-  ];
+  const removeImage = (index: number) => {
+    setUploadedImages((prev) => prev.filter((_, i) => i !== index));
+  };
 
   return (
-    <div className="grid gap-6">
-      {/* Header */}
+    <div className="grid gap-5">
       <div>
-        <h2 className="text-2xl font-black">Website Images</h2>
-        <p className="mt-1 text-sm font-semibold text-slate-500">
-          Manage all website banner and content images. Upload images below and use them for each section.
-        </p>
+        <h2 className="text-2xl font-black">Site Images</h2>
+        <p className="mt-1 text-sm font-semibold text-slate-500">Upload images and copy their URLs to use in home page, about page, and founder settings.</p>
       </div>
 
-      {/* Message Alert */}
-      {message && (
-        <div
-          className={`flex items-center gap-3 rounded-lg p-4 ${
-            message.type === "success"
-              ? "bg-forest/10 border border-forest/30 text-forest"
-              : "bg-red-50 border border-red-200 text-red-700"
-          }`}
-        >
-          {message.type === "success" ? (
-            <CheckCircle className="w-5 h-5 flex-shrink-0" />
-          ) : (
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          )}
-          <p className="text-sm font-semibold">{message.text}</p>
-        </div>
-      )}
+      {error && <div className="rounded bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{error}</div>}
 
-      {/* Media Upload Section */}
-      <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <h3 className="text-base font-black mb-3">Step 1: Upload Images</h3>
-        <p className="text-sm text-slate-500 mb-4">Upload your banner images to Supabase Storage:</p>
-        <MediaUploader
-          images={uploadedImages}
-          videos={[]}
-          onChange={handleMediaUpload}
-        />
-      </div>
+      <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h3 className="text-base font-black">Upload Images</h3>
+        <label className="mt-5 flex cursor-pointer flex-col items-center justify-center rounded border border-dashed border-slate-300 bg-slate-50 p-8 text-center transition hover:border-forest hover:bg-forest/5 dark:border-slate-700 dark:bg-slate-950">
+          <UploadCloud className="h-8 w-8 text-forest" />
+          <span className="mt-3 text-sm font-black text-slate-900 dark:text-white">
+            {uploading ? "Uploading..." : "Upload images"}
+          </span>
+          <span className="mt-1 text-xs font-semibold text-slate-500">PNG, JPG, WebP supported</span>
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            className="sr-only"
+            onChange={(event) => handleUpload(event.target.files)}
+            disabled={uploading}
+          />
+        </label>
+      </section>
 
-      {/* Uploaded URLs Section */}
       {uploadedImages.length > 0 && (
-        <div className="rounded-lg border border-forest/30 bg-forest/5 p-6">
-          <h3 className="text-base font-black mb-4">Step 2: Copy & Use URLs</h3>
-          <p className="text-sm text-slate-600 mb-4">Click on an image to use it, or copy the URL:</p>
-          <div className="grid gap-2">
-            {uploadedImages.map((url) => (
-              <div key={url} className="flex items-center gap-2 bg-white rounded-lg p-3 border border-slate-200">
-                <div className="relative w-12 h-12 bg-slate-100 rounded flex-shrink-0 overflow-hidden">
-                  <Image
-  src={url}
-  alt="Uploaded"
-  fill
-  className="object-cover"
-  unoptimized
-/>
-                
-                </div>
+        <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 className="text-base font-black mb-4">Uploaded Images</h3>
+          <div className="grid gap-4">
+            {uploadedImages.map((image, index) => (
+              <div key={index} className="flex items-center justify-between rounded border border-slate-200 p-3 dark:border-slate-700">
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-slate-600 truncate">{url}</p>
+                  <p className="text-xs font-semibold text-slate-500 mb-1 truncate">{image.name}</p>
+                  <p className="text-sm font-mono text-slate-700 dark:text-slate-300 break-all bg-slate-50 dark:bg-slate-950 p-2 rounded">
+                    {image.url}
+                  </p>
                 </div>
-                <button
-                  onClick={() => copyToClipboard(url)}
-                  className="flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 flex-shrink-0"
-                >
-                  {copiedUrl === url ? (
-                    <><Check className="w-3 h-3" /> Copied</>
-                  ) : (
-                    <><Copy className="w-3 h-3" /> Copy</>
-                  )}
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Image Fields Grid */}
-      <div className="grid gap-4">
-        <h3 className="text-base font-black">Step 3: Assign to Sections</h3>
-        {imageFields.map((field) => {
-          const fieldKey = field.key as keyof SiteSettings;
-          const currentValue = settings?.[fieldKey] as string || "";
-
-          return (
-            <div key={field.key} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <div className="mb-4">
-                <h3 className="text-base font-black">{field.label}</h3>
-                <p className="mt-1 text-sm text-slate-500">{field.description}</p>
-              </div>
-
-              {/* Current Image Preview */}
-              {currentValue && (
-                <div className="mb-4">
-                  <p className="text-xs font-semibold text-slate-600 mb-2">Current Image:</p>
-                  <div className="relative w-full h-48 bg-slate-100 rounded-lg overflow-hidden border border-slate-200">
-                    <Image
-  src={currentValue}
-  alt={field.label}
-  fill
-  className="object-cover"
-  unoptimized
-/>
-                  </div>
-                  <p className="mt-2 text-xs text-slate-500 truncate break-all">{currentValue}</p>
-                </div>
-              )}
-
-              {/* Upload New Image */}
-              <div className="space-y-3">
-                <p className="text-xs font-semibold text-slate-600">Update with URL:</p>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Paste URL from uploaded images above"
-                    value={currentValue}
-                    onChange={(e) => settings && setSettings({ ...settings, [fieldKey]: e.target.value } as SiteSettings)}
-                    disabled={saving}
-                    className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-forest disabled:opacity-50"
-                  />
+                <div className="flex gap-2 ml-3">
                   <button
-                    onClick={() => handleImageUpdate(fieldKey, currentValue)}
-                    disabled={saving || !currentValue}
-                    className="px-4 py-2 text-sm font-semibold bg-forest text-white rounded-lg hover:bg-leaf disabled:opacity-50 transition"
+                    onClick={() => copyToClipboard(image.url, index)}
+                    className="flex items-center justify-center gap-1 rounded bg-forest px-3 py-2 text-xs font-bold text-white transition hover:bg-leaf"
                   >
-                    {saving ? "Saving..." : "Save"}
+                    {image.copied ? (
+                      <>
+                        <Check className="h-4 w-4" />
+                        Copied
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-4 w-4" />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => removeImage(index)}
+                    className="rounded bg-red-50 px-3 py-2 text-xs font-bold text-red-700 transition hover:bg-red-100"
+                  >
+                    Remove
                   </button>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

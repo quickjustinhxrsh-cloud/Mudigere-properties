@@ -2,27 +2,21 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LogOut, Menu, Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { LogOut, Menu } from "lucide-react";
+
 import { supabase } from "@/lib/supabase";
 
 const titles: Record<string, string> = {
-  "/admin/dashboard": "Dashboard",
   "/admin/properties": "Properties",
   "/admin/add-property": "Add Property",
   "/admin/leads": "Leads",
-  "/admin/media": "Media",
+  "/admin/site-images": "Site Images",
   "/admin/settings": "Settings"
 };
 
 export function AdminNavbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-  }, [dark]);
 
   const signOut = async () => {
     await supabase?.auth.signOut();
@@ -45,14 +39,6 @@ export function AdminNavbar() {
           <Link href="/" className="hidden rounded border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900 sm:inline-flex">
             View site
           </Link>
-          <button
-            type="button"
-            onClick={() => setDark((value) => !value)}
-            className="flex h-10 w-10 items-center justify-center rounded border border-slate-200 text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-900"
-            aria-label="Toggle dark mode"
-          >
-            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
           <button
             type="button"
             onClick={signOut}
