@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { isSupabaseUnavailableError, supabase } from "@/lib/supabase";
 
 export type LeadStatus = "new" | "contacted" | "closed";
 
@@ -18,13 +18,21 @@ export async function getLeads() {
     return [];
   }
 
-  const { data, error } = await supabase.from("leads").select("*").order("created_at", { ascending: false });
+  try {
+    const { data, error } = await supabase.from("leads").select("*").order("created_at", { ascending: false });
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return (data ?? []) as Lead[];
+  } catch (error) {
+    if (isSupabaseUnavailableError(error)) {
+      return [];
+    }
+
+    throw error;
   }
-
-  return (data ?? []) as Lead[];
 }
 
 export async function updateLeadStatus(id: number, status: LeadStatus) {
@@ -32,11 +40,19 @@ export async function updateLeadStatus(id: number, status: LeadStatus) {
     throw new Error("Supabase is not configured.");
   }
 
-  const { data, error } = await supabase.from("leads").update({ status }).eq("id", id).select("*").single();
+  try {
+    const { data, error } = await supabase.from("leads").update({ status }).eq("id", id).select("*").single();
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data as Lead;
+  } catch (error) {
+    if (isSupabaseUnavailableError(error)) {
+      throw new Error("Supabase is currently unavailable. Please try again shortly.");
+    }
+
+    throw error;
   }
-
-  return data as Lead;
 }

@@ -1,5 +1,5 @@
 import { images } from "@/lib/images";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseUnavailableError, supabase } from "@/lib/supabase";
 
 export type PropertyStatus = "draft" | "published";
 
@@ -169,23 +169,31 @@ export async function getProperties(options: { includeDrafts?: boolean; featured
     return options.featuredOnly ? fallbackProperties.filter((property) => property.featured) : fallbackProperties;
   }
 
-  let query = supabase.from("properties").select("*").order("created_at", { ascending: false });
+  try {
+    let query = supabase.from("properties").select("*").order("created_at", { ascending: false });
 
-  if (!options.includeDrafts) {
-    query = query.eq("status", "published");
+    if (!options.includeDrafts) {
+      query = query.eq("status", "published");
+    }
+
+    if (options.featuredOnly) {
+      query = query.eq("featured", true);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return (data ?? []).map((property) => normalizeProperty(property as Property));
+  } catch (error) {
+    if (isSupabaseUnavailableError(error)) {
+      return options.featuredOnly ? fallbackProperties.filter((property) => property.featured) : fallbackProperties;
+    }
+
+    throw error;
   }
-
-  if (options.featuredOnly) {
-    query = query.eq("featured", true);
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((property) => normalizeProperty(property as Property));
 }
 
 export async function getProperty(idOrSlug: string | number) {
@@ -199,21 +207,35 @@ export async function getProperty(idOrSlug: string | number) {
     );
   }
 
-  const isNumeric =
-    typeof idOrSlug === "number" ||
-    /^\d+$/.test(String(idOrSlug));
+  try {
+    const isNumeric =
+      typeof idOrSlug === "number" ||
+      /^\d+$/.test(String(idOrSlug));
 
-  const query = supabase.from("properties").select("*");
+    const query = supabase.from("properties").select("*");
 
-  const { data, error } = isNumeric
-    ? await query.eq("id", idOrSlug).single()
-    : await query.eq("slug", String(idOrSlug)).single();
+    const { data, error } = isNumeric
+      ? await query.eq("id", idOrSlug).single()
+      : await query.eq("slug", String(idOrSlug)).single();
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data ? normalizeProperty(data as Property) : null;
+  } catch (error) {
+    if (isSupabaseUnavailableError(error)) {
+      return (
+        fallbackProperties.find(
+          (property) =>
+            String(property.id) === String(idOrSlug) ||
+            property.slug === String(idOrSlug)
+        ) ?? null
+      );
+    }
+
+    throw error;
   }
-
-  return data ? normalizeProperty(data as Property) : null;
 }
 
 

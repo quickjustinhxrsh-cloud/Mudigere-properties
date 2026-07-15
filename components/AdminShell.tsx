@@ -13,17 +13,22 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [checking, setChecking] = useState(!isLogin);
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin || !supabase) {
+      setChecking(false);
       return;
     }
 
-    supabase?.auth.getSession().then(({ data }) => {
-      if (!data.session) {
-        router.replace("/admin/login");
-      } else {
+    supabase.auth.getSession()
+      .then(({ data }) => {
+        if (!data.session) {
+          router.replace("/admin/login");
+        } else {
+          setChecking(false);
+        }
+      })
+      .catch(() => {
         setChecking(false);
-      }
-    });
+      });
   }, [isLogin, router]);
 
   if (isLogin) {

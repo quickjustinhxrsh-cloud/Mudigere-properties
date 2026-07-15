@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { isSupabaseUnavailableError, supabase } from "@/lib/supabase";
 
 export type SiteSettings = {
   company_name: string;
@@ -41,13 +41,21 @@ export async function getSettings() {
     return defaultSettings;
   }
 
-  const { data, error } = await supabase.from("settings").select("*").eq("id", 1).maybeSingle();
+  try {
+    const { data, error } = await supabase.from("settings").select("*").eq("id", 1).maybeSingle();
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return { ...defaultSettings, ...(data ?? {}) } as SiteSettings;
+  } catch (error) {
+    if (isSupabaseUnavailableError(error)) {
+      return defaultSettings;
+    }
+
+    throw error;
   }
-
-  return { ...defaultSettings, ...(data ?? {}) } as SiteSettings;
 }
 
 export async function updateSettings(settings: SiteSettings) {

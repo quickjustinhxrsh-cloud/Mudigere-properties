@@ -26,8 +26,12 @@ export function ContactForm() {
     };
 
     if (supabase) {
-      const { error } = await supabase.from("leads").insert(payload);
-      if (error) {
+      try {
+        const { error } = await supabase.from("leads").insert(payload);
+        if (error) {
+          throw error;
+        }
+      } catch (error) {
         console.error(error);
         setErrorMessage("We could not submit your inquiry. Please call us directly.");
         setLoading(false);
