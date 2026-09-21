@@ -1,8 +1,11 @@
 import { getProperty } from "@/lib/properties";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import ContactModal from "@/components/ContactModal";
 
 export default async function PropertyPage({ params }: { params: { slug: string } }) {
+  if (params.slug === "premium-house") {
+    redirect("/properties/premium-villa");
+  }
   const property = await getProperty(params.slug);
   if (!property) return notFound();
 

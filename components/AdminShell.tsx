@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AdminNavbar } from "@/components/AdminNavbar";
 import { AdminSidebar } from "@/components/AdminSidebar";
 import { supabase } from "@/lib/supabase";
+import { isAdmin } from "@/lib/auth";
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,16 +19,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    supabase.auth.getSession()
-      .then(({ data }) => {
-        if (!data.session) {
+    supabase.auth.getUser()
+      .then(({ data, error }) => {
+        if (error || !isAdmin(data.user)) {
           router.replace("/admin/login");
         } else {
           setChecking(false);
         }
       })
       .catch(() => {
-        setChecking(false);
+        router.replace("/admin/login");
       });
   }, [isLogin, router]);
 

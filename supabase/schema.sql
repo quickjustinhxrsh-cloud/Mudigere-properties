@@ -32,6 +32,12 @@ create table if not exists public.leads (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.lead_rate_limits (
+  ip text primary key,
+  window_started_at timestamptz not null default now(),
+  submission_count integer not null default 0 check (submission_count >= 0)
+);
+
 create table if not exists public.settings (
   id integer primary key default 1 check (id = 1),
   company_name text not null default 'Mudigere Properties',
@@ -49,12 +55,49 @@ create table if not exists public.settings (
   social_links jsonb not null default '{"instagram":"","facebook":"","linkedin":""}'::jsonb
 );
 
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false);
+$$;
+
+create or replace function public.allow_lead_submission(request_ip text)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  permitted boolean;
+begin
+  insert into public.lead_rate_limits (ip, window_started_at, submission_count)
+  values (request_ip, now(), 1)
+  on conflict (ip) do update set
+    window_started_at = case
+      when public.lead_rate_limits.window_started_at < now() - interval '1 hour' then now()
+      else public.lead_rate_limits.window_started_at
+    end,
+    submission_count = case
+      when public.lead_rate_limits.window_started_at < now() - interval '1 hour' then 1
+      else public.lead_rate_limits.submission_count + 1
+    end
+  returning submission_count <= 5 into permitted;
+
+  return permitted;
+end;
+$$;
+
 insert into public.settings (id)
 values (1)
 on conflict (id) do nothing;
 
 alter table public.properties enable row level security;
 alter table public.leads enable row level security;
+alter table public.lead_rate_limits enable row level security;
 alter table public.settings enable row level security;
 
 drop policy if exists "Published properties are public" on public.properties;
@@ -63,24 +106,23 @@ on public.properties for select
 using (status = 'published');
 
 drop policy if exists "Authenticated users manage properties" on public.properties;
-create policy "Authenticated users manage properties"
+drop policy if exists "Admins manage properties" on public.properties;
+create policy "Admins manage properties"
 on public.properties for all
 to authenticated
-using (true)
-with check (true);
-
-drop policy if exists "Anyone can create leads" on public.leads;
-create policy "Anyone can create leads"
-on public.leads for insert
-to anon, authenticated
-with check (true);
+using (public.is_admin())
+with check (public.is_admin());
 
 drop policy if exists "Authenticated users manage leads" on public.leads;
-create policy "Authenticated users manage leads"
+drop policy if exists "Admins manage leads" on public.leads;
+create policy "Admins manage leads"
 on public.leads for all
 to authenticated
-using (true)
-with check (true);
+using (public.is_admin())
+with check (public.is_admin());
+
+revoke all on function public.allow_lead_submission(text) from public;
+grant execute on function public.allow_lead_submission(text) to service_role;
 
 drop policy if exists "Settings are public" on public.settings;
 create policy "Settings are public"
@@ -88,11 +130,13 @@ on public.settings for select
 using (true);
 
 drop policy if exists "Authenticated users manage settings" on public.settings;
-create policy "Anyone can manage settings"
+drop policy if exists "Anyone can manage settings" on public.settings;
+drop policy if exists "Admins manage settings" on public.settings;
+create policy "Admins manage settings"
 on public.settings for all
- to anon, authenticated
-using (true)
-with check (true);
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
 
 insert into storage.buckets (id, name, public)
 values ('property-media', 'property-media', true)
@@ -104,20 +148,11 @@ on storage.objects for select
 using (bucket_id = 'property-media');
 
 drop policy if exists "Authenticated users upload property media" on storage.objects;
-create policy "Authenticated users upload property media"
-on storage.objects for insert
-to authenticated
-with check (bucket_id = 'property-media');
-
 drop policy if exists "Authenticated users update property media" on storage.objects;
-create policy "Authenticated users update property media"
-on storage.objects for update
-to authenticated
-using (bucket_id = 'property-media')
-with check (bucket_id = 'property-media');
-
 drop policy if exists "Authenticated users delete property media" on storage.objects;
-create policy "Authenticated users delete property media"
-on storage.objects for delete
+drop policy if exists "Admins manage property media" on storage.objects;
+create policy "Admins manage property media"
+on storage.objects for all
 to authenticated
-using (bucket_id = 'property-media');
+using (bucket_id = 'property-media' and public.is_admin())
+with check (bucket_id = 'property-media' and public.is_admin());

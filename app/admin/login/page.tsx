@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Building2, Lock } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { isAdmin } from "@/lib/auth";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -23,10 +24,17 @@ export default function AdminLoginPage() {
       return;
     }
 
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
 
     if (authError) {
       setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
+    if (!isAdmin(data.user)) {
+      await supabase.auth.signOut();
+      setError("This account is not authorized to access the admin area.");
       setLoading(false);
       return;
     }

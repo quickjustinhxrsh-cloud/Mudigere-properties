@@ -52,8 +52,8 @@ const fallbackProperties: Property[] = [
   },
   {
     id: 2,
-    title: "Premium House",
-    slug: "premium-house",
+    title: "Premium Villa",
+    slug: "premium-villa",
     description: "A productive coffee estate with water source.",
     location: "Chikkamagaluru",
     type: "Coffee Estate",

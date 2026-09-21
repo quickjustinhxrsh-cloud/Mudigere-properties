@@ -3,7 +3,6 @@
 import { Mail, Phone, User, MessageSquare } from "lucide-react";
 import { FormEvent, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -25,18 +24,20 @@ export function ContactForm() {
       status: "new"
     };
 
-    if (supabase) {
-      try {
-        const { error } = await supabase.from("leads").insert(payload);
-        if (error) {
-          throw error;
-        }
-      } catch (error) {
-        console.error(error);
-        setErrorMessage("We could not submit your inquiry. Please call us directly.");
-        setLoading(false);
-        return;
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, website: String(form.get("website") || "") })
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(result?.error || "We could not submit your inquiry. Please call us directly.");
       }
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "We could not submit your inquiry. Please call us directly.");
+      setLoading(false);
+      return;
     }
 
     setLoading(false);
@@ -59,6 +60,7 @@ export function ContactForm() {
       ) : null}
       {errorMessage ? <div className="mb-5 rounded bg-red-50 px-5 py-4 text-sm font-black text-red-700">{errorMessage}</div> : null}
       <form ref={formRef} onSubmit={handleSubmit} className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] sm:p-7" style={{ minHeight: 0 }}>
+        <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <h2
           className="text-center text-forest"
           style={{
