@@ -58,16 +58,14 @@ export function ContactForm() {
         </div>
       ) : null}
       {errorMessage ? <div className="mb-5 rounded bg-red-50 px-5 py-4 text-sm font-black text-red-700">{errorMessage}</div> : null}
-      <form ref={formRef} onSubmit={handleSubmit} className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] sm:p-7" style={{ minHeight: 587 }}>
+      <form ref={formRef} onSubmit={handleSubmit} className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] sm:p-7" style={{ minHeight: 0 }}>
         <h2
           className="text-center text-forest"
           style={{
-            width: 335,
-            height: 39,
             fontFamily: 'Montserrat',
             fontWeight: 700,
             fontStyle: 'bold',
-            fontSize: 32,
+            fontSize: 'clamp(1.75rem, 7vw, 2rem)',
             lineHeight: '100%',
             letterSpacing: '0%',
             color: 'var(--main-Color, #064417)'

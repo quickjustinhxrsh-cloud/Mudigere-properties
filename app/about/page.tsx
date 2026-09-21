@@ -55,17 +55,15 @@ export default async function AboutPage() {
                 fontFamily: 'Montserrat',
                 fontWeight: 700,
                 fontStyle: 'bold',
-                fontSize: 54,
+                fontSize: "clamp(2.25rem, 10vw, 3.375rem)",
                 lineHeight: '100%',
                 letterSpacing: '0%'
               }}
             >
               About Mudigere Properties
             </h1>
-            <p className="mt-7 text-[20px] font-medium leading-snug text-[#3F302D] sm:text-[26px] lg:text-[30px]">
-              <span className="whitespace-nowrap">Discover premium real estate opportunities in</span>
-              <br />
-              the heart of Malnad Region.
+            <p className="mt-7 text-lg font-medium leading-snug text-[#3F302D] sm:text-[26px] lg:text-[30px]">
+              Discover premium real estate opportunities in the heart of Malnad Region.
             </p>
             <div className="mt-10 flex flex-wrap gap-5">
               <Link href="/properties" className="btn-primary h-11 min-w-[178px] rounded-[4px] px-6">

@@ -14,7 +14,7 @@ export function Footer({ logo }: { logo?: string }) {
 
   return (
     <footer className="bg-forest text-white">
-      <div className="container-pad grid gap-8 py-6 md:grid-cols-[1.15fr_0.8fr_1.05fr] md:items-stretch">
+      <div className="container-pad grid gap-8 py-10 md:grid-cols-[1.15fr_0.8fr_1.05fr] md:items-stretch">
         <div className="flex h-full flex-col items-center justify-center text-center md:pr-6 md:border-r md:border-white/90">
           <Logo light src={logo || undefined} className="mx-auto h-28 w-auto object-contain" />
           <p className="mt-5 max-w-xs text-xl leading-6 text-white/85">
@@ -23,9 +23,9 @@ export function Footer({ logo }: { logo?: string }) {
             by Nature.
           </p>
         </div>
-        <div className="flex h-[184px] w-full flex-col items-start justify-center text-left md:items-start md:pr-6 md:border-r md:border-white/90">
+        <div className="flex w-full flex-col items-center justify-center text-center md:h-[184px] md:items-start md:text-left md:pr-6 md:border-r md:border-white/90">
           <h3 className="text-base font-medium tracking-wide">Quick Links</h3>
-          <ul className="mt-4 flex w-full max-w-[180px] flex-col items-start gap-2 text-sm text-white/85">
+          <ul className="mt-4 flex w-full max-w-[180px] flex-col items-center gap-2 text-sm text-white/85 md:items-start">
             {[
               ["Home", "/"],
               ["About Us", "/about"],
@@ -39,16 +39,16 @@ export function Footer({ logo }: { logo?: string }) {
             ))}
           </ul>
         </div>
-        <div className="flex h-[184px] w-full flex-col items-start justify-center text-left md:items-start md:pl-4">
+        <div className="flex w-full flex-col items-center justify-center text-center md:h-[184px] md:items-start md:text-left md:pl-4">
           <h3 className="text-base font-medium tracking-wide">Contact Details</h3>
-          <div className="mt-4 flex w-full flex-col items-start gap-3 text-sm text-white/85">
-            <p className="flex items-center justify-start gap-3 text-left">
+          <div className="mt-4 flex w-full flex-col items-center gap-3 text-sm text-white/85 md:items-start">
+            <p className="flex items-center justify-center gap-3 text-center md:justify-start md:text-left">
               <Phone className="h-4 w-4" /> +91 99721 94722
             </p>
             <p className="flex items-center justify-center gap-3 text-center">
               <MapPin className="h-4 w-4" /> Mudigere & Chikkamagaluru
             </p>
-            <p className="flex items-center justify-start gap-3 text-left">
+            <p className="flex items-center justify-center gap-3 text-center md:justify-start md:text-left">
               <Globe2 className="h-4 w-4" /> mudigereproperties.com
             </p>
           </div>

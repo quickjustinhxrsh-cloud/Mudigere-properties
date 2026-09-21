@@ -136,7 +136,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
 
   return (
     <>
-      <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between" style={{ paddingLeft: '150px', paddingRight: '150px', boxSizing: 'border-box' }}>
+      <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:px-[150px]">
         <label className="relative block w-full max-w-xl">
           <span className="sr-only">Search Properties</span>
           <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-forest" />
@@ -152,15 +152,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
 
       {error ? <p className="mt-5 rounded bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{error}</p> : null}
 
-      <div className="mt-7 w-full" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        rowGap: '24px',
-        columnGap: '16px',
-        paddingLeft: '150px',
-        paddingRight: '150px',
-        boxSizing: 'border-box'
-      }}>
+      <div className="mt-7 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6 lg:px-[150px]">
         {filtered.length ? (
           filtered.slice((currentPage - 1) * propertiesPerPage, currentPage * propertiesPerPage).map((property) => (
             <PropertyCard key={property.id} property={property} onView={openProperty} />
@@ -189,7 +181,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
 
       {selected && currentMedia ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4" role="dialog" aria-modal="true">
-          <div className="relative w-full max-w-4xl overflow-hidden rounded-lg bg-white shadow-2xl">
+          <div className="relative max-h-[92svh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white shadow-2xl">
             <button
               onClick={() => setSelected(null)}
               className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded bg-white text-forest shadow transition hover:bg-forest hover:text-white"
@@ -198,7 +190,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
               <X className="h-5 w-5" />
             </button>
             <div
-              className="relative aspect-[16/10] bg-slate-950 flex items-center justify-center cursor-pointer select-none"
+              className="relative flex aspect-[4/3] cursor-pointer select-none items-center justify-center bg-slate-950 sm:aspect-[16/10]"
               onClick={togglePlayPause}
             >
               {currentMedia.type === "video" ? (
@@ -246,7 +238,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
                       e.stopPropagation();
                       setSlide((s) => (s === 0 ? mediaItems.length - 1 : s - 1));
                     }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/80 hover:scale-105 shadow-md"
+                    className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white shadow-md transition hover:scale-105 hover:bg-black/80 sm:left-4"
                     aria-label="Previous slide"
                   >
                     <ChevronLeft className="h-6 w-6" />
@@ -256,7 +248,7 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
                       e.stopPropagation();
                       setSlide((s) => (s === mediaItems.length - 1 ? 0 : s + 1));
                     }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/80 hover:scale-105 shadow-md"
+                    className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white shadow-md transition hover:scale-105 hover:bg-black/80 sm:right-4"
                     aria-label="Next slide"
                   >
                     <ChevronRight className="h-6 w-6" />

@@ -23,10 +23,9 @@ export default async function PropertiesPage() {
       <PropertiesPageClient />
       <section className="section-pad">
         <div className="container-pad">
-          <h1 className="text-4xl font-bold text-forest md:text-5xl" style={{ paddingLeft: '150px' }}>Our Properties</h1>
-          <p style={{ fontFamily: "Montserrat", fontWeight: 500, fontSize: "32px", lineHeight: "100%", maxWidth: "100%", marginTop: "20px", color: "rgb(31, 31, 31)", paddingLeft: '150px' }}>
-            Explore premium Coffee estates, Resorts, Villas and investment<br />
-            opportunities in Malnad Region
+          <h1 className="text-[clamp(2rem,9vw,3rem)] font-bold leading-tight text-forest lg:pl-[150px]">Our Properties</h1>
+          <p className="mt-4 max-w-3xl text-lg font-medium leading-snug text-[#1f1f1f] sm:text-2xl lg:pl-[150px] lg:text-[32px] lg:leading-none">
+            Explore premium Coffee estates, Resorts, Villas and investment opportunities in Malnad Region
           </p>
           <PropertyExplorer initialProperties={initialProperties} />
           {/* Hide 'Back to Properties List' on the first page */}

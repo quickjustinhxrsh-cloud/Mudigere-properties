@@ -54,40 +54,17 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
       <section className="bg-white section-pad">
         <div className="container-pad text-center lg:px-[150px]">
           <h2 className="text-[28px] font-bold text-forest text-center" style={{ fontFamily: 'Montserrat', lineHeight: '100%', letterSpacing: '0%' }}>Featured Properties</h2>
-          <p
-            className="mx-auto mt-4 w-full max-w-full text-center hidden md:block whitespace-nowrap"
-            style={{
-              fontFamily: 'Montserrat',
-              fontWeight: 500,
-              fontSize: '22px',
-              lineHeight: '100%',
-              letterSpacing: '0%',
-              color: 'var(--2nd-color, #3F302D)'
-            }}
-          >
-            Explore handpicked properties designed for investment, peaceful living, and future growth.
-          </p>
-          <p 
-            className="mx-auto mt-4 w-full max-w-full text-center md:hidden"
-            style={{
-              fontFamily: 'Montserrat',
-              fontWeight: 500,
-              fontSize: '22px',
-              lineHeight: '100%',
-              letterSpacing: '0%',
-              color: 'var(--2nd-color, #3F302D)'
-            }}
-          >
+          <p className="mx-auto mt-4 max-w-2xl text-center text-base font-medium leading-relaxed text-[#3F302D] sm:text-lg">
             Explore handpicked properties designed for investment, peaceful living, and future growth.
           </p>
           <div className="mt-9 grid gap-6 md:grid-cols-3 w-full">
             {properties.map((property) => (
               <article
                 key={property.id}
-                className="overflow-hidden border border-black/10 bg-white shadow-soft transition-all duration-200 hover:shadow-md flex flex-col w-full lg:h-[535px]"
+                className="flex w-full flex-col overflow-hidden border border-black/10 bg-white shadow-soft transition-all duration-200 hover:shadow-md lg:h-[535px]"
                 style={{ borderRadius: '20px' }}
               >
-                <div className="relative w-full h-[300px] flex-shrink-0" style={{ borderRadius: '20px', overflow: 'hidden' }}>
+                <div className="relative h-[220px] w-full shrink-0 sm:h-[260px] lg:h-[300px]" style={{ borderRadius: '20px', overflow: 'hidden' }}>
                   <Image
                     src={property.image}
                     alt={property.title}
@@ -98,14 +75,14 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
                 </div>
                 <div className="p-5 flex-1 flex flex-col">
                   <h3 
-                    className="font-bold text-forest text-center mx-auto"
+                    className="mx-auto text-center font-bold text-forest"
                     style={{
                       fontFamily: 'Montserrat',
-                      fontSize: '28px',
+                      fontSize: 'clamp(1.25rem, 6vw, 1.75rem)',
                       lineHeight: '100%',
-                      marginTop: '57px', // 377px top - 300px image - 20px padding
-                      width: '237px',
-                      height: '33px'
+                      marginTop: '12px',
+                      width: '100%',
+                      minHeight: '33px'
                     }}
                   >
                     {property.title}
@@ -115,8 +92,9 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
                       href="/properties"
                       className="btn-primary flex items-center justify-center mx-auto"
                       style={{
-                        marginTop: '30px', 
-                        width: '327px',
+                        marginTop: '20px',
+                        width: '100%',
+                        maxWidth: '327px',
                         height: '50px'
                       }}
                     >

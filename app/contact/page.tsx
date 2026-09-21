@@ -19,16 +19,14 @@ export default function ContactPage() {
   return (
     <main className="page-enter">
       <section className="section-pad">
-        <div className="w-full px-5 sm:px-8" style={{ paddingLeft: '180px', paddingRight: '150px', boxSizing: 'border-box' }}>
+        <div className="w-full px-5 sm:px-8 lg:px-[150px]">
           <h1
             className="text-forest"
             style={{
-              width: 839,
-              height: 77,
               fontFamily: 'Montserrat',
               fontWeight: 700,
               fontStyle: 'bold',
-              fontSize: 54,
+              fontSize: 'clamp(2rem, 9vw, 3.375rem)',
               lineHeight: '100%',
               letterSpacing: '0%',
               color: 'var(--main-Color, #064417)'
@@ -38,8 +36,8 @@ export default function ContactPage() {
           </h1>
 
           <div className="mt-10 flex w-full flex-col gap-6 md:flex-row md:items-stretch md:justify-start md:gap-8">
-            <aside className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] md:w-[40%] sm:p-7" style={{ minHeight: 587 }}>
-              <h2 className="text-[32px] font-bold text-forest" style={{ fontFamily: 'Montserrat', lineHeight: '100%' }}>Get In Touch</h2>
+            <aside className="w-full rounded-[20px] border border-black/10 bg-[#06441705] p-5 shadow-[0_0_8px_rgba(0,0,0,0.25)] md:w-[40%] sm:p-7" style={{ minHeight: 0 }}>
+              <h2 className="text-[28px] font-bold text-forest sm:text-[32px]" style={{ fontFamily: 'Montserrat', lineHeight: '100%' }}>Get In Touch</h2>
               <div className="mt-7 grid gap-0">
                 {details.map(({ icon: Icon, text }, index) => (
                   <div key={text}>

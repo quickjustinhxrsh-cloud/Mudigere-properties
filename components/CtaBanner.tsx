@@ -53,15 +53,10 @@ export function CtaBanner({
     }
   }
   const sectionStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    boxSizing: "border-box",
     background: `linear-gradient(rgba(6, 68, 23, 0.5), rgba(6, 68, 23, 0.5)), url('${imageUrl}')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    minHeight: "200px",
-    flexWrap: "wrap"
+    minHeight: "200px"
   };
 
   const headingStyle: React.CSSProperties = {
@@ -72,15 +67,6 @@ export function CtaBanner({
     margin: 0,
     textShadow: "0 2px 4px rgba(0,0,0,0.2)",
     flex: 1
-  };
-
-  const containerStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "60px",
-    width: "100%",
-    justifyContent: "space-between"
   };
 
   const textContainerStyle: React.CSSProperties = {
@@ -115,8 +101,8 @@ export function CtaBanner({
   };
 
   return (
-    <section style={sectionStyle} className="py-[60px] px-5 sm:px-8 lg:px-[150px]">
-      <div style={containerStyle}>
+    <section style={sectionStyle} className="flex items-center px-5 py-12 sm:px-8 sm:py-[60px] lg:px-[150px]">
+      <div className="flex w-full flex-col items-start justify-between gap-7 sm:flex-row sm:items-center sm:gap-10">
         {/* Heading and optional text */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "15px" }}>
           <h1 style={headingStyle}>{title}</h1>
@@ -130,7 +116,7 @@ export function CtaBanner({
         {/* Button */}
         <Link 
           href={ctaHref} 
-          style={buttonStyle}
+          style={buttonStyle} className="w-full justify-center sm:w-auto"
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f0f0f0")}
           onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "white")}
         >
