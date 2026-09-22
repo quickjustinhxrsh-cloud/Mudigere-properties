@@ -49,11 +49,12 @@ export default async function HomePage() {
   const featuredProperties = featuredData.length ? featuredData : propertyGrid.filter((property) => property.featured);
   // Use banner image from settings or fallback to default
   const bannerImage = settings?.home_banner_image || "https://iwzyuwczaqaxgcwujfkj.supabase.co/storage/v1/object/public/property-media/2026/Mask%20group%20(1).png";
+  const bannerBackgroundImage = `url("${bannerImage.replace(/["\\\n\r\f]/g, "\\$&")}")`;
 
   return (
     <main className="page-enter bg-white text-black">
       <section className="relative min-h-screen h-screen overflow-hidden text-white">
-        <div className="absolute inset-0" style={{ backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="absolute inset-0" style={{ backgroundImage: bannerBackgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <div className="container-pad relative flex min-h-[calc(100svh-72px)] flex-col items-start justify-end pb-12 pt-28 text-left sm:min-h-screen sm:justify-center sm:pb-0 lg:px-[150px]">
           <div className="w-full">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-white/80 sm:hidden">Mudigere Properties</p>
