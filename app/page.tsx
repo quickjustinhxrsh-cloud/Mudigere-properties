@@ -13,7 +13,10 @@ import { InviteRedirect } from "@/components/InviteRedirect";
 export const metadata: Metadata = {
   title: "Premium Properties in Mudigere & Chikkamagaluru",
   description:
-    "Discover premium coffee estates, villas, Resorts and Farmlands surrounded by nature."
+    "Discover premium coffee estates, villas, resorts and farmlands surrounded by nature.",
+  alternates: {
+    canonical: "/"
+  }
 };
 
 const HouseIcon = () => (
