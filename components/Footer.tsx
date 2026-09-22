@@ -8,7 +8,7 @@ import { Logo } from "@/components/Logo";
 export function Footer({ logo }: { logo?: string }) {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) {
     return null;
   }
 

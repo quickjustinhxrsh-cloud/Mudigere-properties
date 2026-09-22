@@ -8,6 +8,7 @@ import { images } from "@/lib/images";
 import { getProperties, propertyGrid } from "@/lib/properties";
 import { getSettings } from "@/lib/settings";
 import { FeaturedPropertiesClient } from "@/components/FeaturedPropertiesClient";
+import { InviteRedirect } from "@/components/InviteRedirect";
 
 export const metadata: Metadata = {
   title: "Premium Properties in Mudigere & Chikkamagaluru",
@@ -53,6 +54,7 @@ export default async function HomePage() {
 
   return (
     <main className="page-enter bg-white text-black">
+      <InviteRedirect />
       <section className="relative min-h-screen h-screen overflow-hidden text-white">
         <div className="absolute inset-0" style={{ backgroundImage: bannerBackgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <div className="container-pad relative flex min-h-[calc(100svh-72px)] flex-col items-start justify-end pb-12 pt-28 text-left sm:min-h-screen sm:justify-center sm:pb-0 lg:px-[150px]">

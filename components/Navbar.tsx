@@ -16,7 +16,7 @@ export function Navbar({ logo }: { logo?: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) {
     return null;
   }
 
