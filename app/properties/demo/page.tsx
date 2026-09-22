@@ -41,7 +41,11 @@ export default function DemoPropertiesPage() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-10">
           <h1 className="text-5xl font-bold text-forest mb-4">Our Properties</h1>
-          <p className="text-gray-600 text-2xl md:text-3xl font-bold max-w-3xl leading-10">Explore premium Coffee estates, Resorts, Villas and investment opportunities in Malnad Region</p>
+          <p className="text-gray-600 text-2xl md:text-3xl font-bold max-w-3xl leading-10">
+            Explore premium Coffee estates, Resorts, Villas and investment
+            <br />
+            opportunities in Malnad Region
+          </p>
         </div>
 
         <div className="mb-6 flex items-center justify-between">

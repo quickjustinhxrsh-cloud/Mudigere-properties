@@ -99,7 +99,6 @@ export default async function HomePage() {
             >
               About Mudigere Properties
             </h2>
-            <div className="eyebrow-line" />
             <p className="mt-7 max-w-xl text-base leading-7 sm:text-lg" style={{ color: 'var(--2nd-color, #3F302D)' }}>
               Mudigere Properties helps you discover premium Coffee estates, villas, Resorts and investment opportunities in Mudigere & Chikkamagaluru.
             </p>

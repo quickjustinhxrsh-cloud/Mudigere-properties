@@ -59,8 +59,8 @@ create or replace function public.is_admin()
 returns boolean
 language sql
 stable
-security definer
-set search_path = public
+security invoker
+set search_path = ''
 as $$
   select coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false);
 $$;
@@ -69,7 +69,7 @@ create or replace function public.allow_lead_submission(request_ip text)
 returns boolean
 language plpgsql
 security definer
-set search_path = public
+set search_path = ''
 as $$
 declare
   permitted boolean;

@@ -92,50 +92,27 @@ export function PropertyForm({
         .map((amenity) => amenity.trim())
         .filter(Boolean);
 
-      let payload: any;
+      const commonPayload = {
+        title: form.title,
+        description: form.description,
+        price: form.price,
+        location: form.location,
+        type: form.type,
+        bedrooms: form.bedrooms,
+        bathrooms: form.bathrooms,
+        area: form.area,
+        amenities,
+        images: form.images,
+        videos: form.videos,
+        featured: form.featured,
+        status,
+        contact_phone: form.contact_phone || null,
+        contact_email: form.contact_email || null
+      };
 
-      if (initialProperty?.id) {
-        // For updates, build payload WITHOUT slug to avoid unique constraint errors
-        payload = {
-          title: form.title,
-          description: form.description,
-          price: form.price,
-          location: form.location,
-          type: form.type,
-          bedrooms: form.bedrooms,
-          bathrooms: form.bathrooms,
-          area: form.area,
-          amenities,
-          images: form.images,
-          videos: form.videos,
-          featured: form.featured,
-          status,
-          contact_phone: form.contact_phone || null,
-          contact_email: form.contact_email || null
-        };
-      } else {
-        // For new properties, include slug
-        payload = {
-          title: form.title,
-          slug: form.slug || slugify(form.title),
-          description: form.description,
-          price: form.price,
-          location: form.location,
-          type: form.type,
-          bedrooms: form.bedrooms,
-          bathrooms: form.bathrooms,
-          area: form.area,
-          amenities,
-          images: form.images,
-          videos: form.videos,
-          featured: form.featured,
-          status,
-          contact_phone: form.contact_phone || null,
-          contact_email: form.contact_email || null
-        };
-      }
-
-      const saved = initialProperty?.id ? await updateProperty(initialProperty.id, payload) : await addProperty(payload);
+      const saved = initialProperty?.id
+        ? await updateProperty(initialProperty.id, commonPayload)
+        : await addProperty({ ...commonPayload, slug: form.slug || slugify(form.title) });
 
       if (initialProperty?.id) {
         // Editing an existing property — keep the form populated with saved values

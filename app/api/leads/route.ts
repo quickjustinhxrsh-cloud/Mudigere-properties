@@ -1,28 +1,51 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { getHoneypotValue, getTurnstileToken, parseLeadSubmission } from "@/lib/lead-validation";
 
-function asText(value: unknown, maxLength: number) {
-  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+export const runtime = "nodejs";
+
+function getClientIp(request: NextRequest) {
+  return request.headers.get("x-vercel-forwarded-for")?.trim()
+    || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+    || "unknown";
+}
+
+async function verifyTurnstile(token: string, ip: string) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true;
+  if (!token) return false;
+
+  const form = new URLSearchParams({ secret, response: token, remoteip: ip });
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    body: form,
+    cache: "no-store"
+  }).catch(() => null);
+  if (!response?.ok) return false;
+
+  const result = await response.json().catch(() => null);
+  return result?.success === true;
 }
 
 export async function POST(request: NextRequest) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const ip = getClientIp(request);
   const body = await request.json().catch(() => null);
-  if (!body || typeof body !== "object") {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
+  const record = body as Record<string, unknown>;
 
   // Bots typically populate fields that are visually hidden from people.
-  if (asText(body.website, 200)) {
+  if (getHoneypotValue(record)) {
     return NextResponse.json({ success: true });
   }
 
-  const name = asText(body.name, 120);
-  const phone = asText(body.phone, 40);
-  const email = asText(body.email, 254);
-  const message = asText(body.message, 4000);
-  if (!name || !phone || !message || !/^\S+@\S+\.\S+$/.test(email)) {
+  const lead = parseLeadSubmission(record);
+  if (!lead) {
     return NextResponse.json({ error: "Please complete all required fields with a valid email address." }, { status: 400 });
+  }
+  if (!await verifyTurnstile(getTurnstileToken(record), ip)) {
+    return NextResponse.json({ error: "Verification failed. Please try again." }, { status: 400 });
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -37,7 +60,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
   }
 
-  const { error } = await supabase.from("leads").insert({ name, phone, email, message, status: "new" });
+  const { error } = await supabase.from("leads").insert({ ...lead, status: "new" });
   if (error) {
     return NextResponse.json({ error: "We could not submit your inquiry. Please call us directly." }, { status: 500 });
   }

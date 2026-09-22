@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { Turnstile } from "@/components/Turnstile";
 
 interface Property {
   id: string | number;
@@ -14,15 +15,10 @@ interface Property {
 
 export function FeaturedPropertiesClient({ properties }: { properties: Property[] }) {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "", website: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-
-  const handleContactClick = (property: Property) => {
-    setSelectedProperty(property);
-    setSubmitStatus("idle");
-    setFormData({ name: "", email: "", message: "" });
-  };
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const closeModal = () => setSelectedProperty(null);
 
@@ -38,11 +34,22 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
 
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Contact request for property:", selectedProperty.title, formData);
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+          message: `Property inquiry: ${selectedProperty.title}\n\n${formData.message}`
+        })
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(result?.error || "We could not send your message. Please call us directly.");
+      }
       setSubmitStatus("success");
       setTimeout(() => closeModal(), 2000);
-    } catch (error) {
+    } catch {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -165,6 +172,24 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
 
                   <div>
                     <label
+                      htmlFor="phone"
+                      className="mb-1 block text-sm font-medium text-gray-700"
+                    >
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      required
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
+                    />
+                  </div>
+
+                  <div>
+                    <label
                       htmlFor="email"
                       className="mb-1 block text-sm font-medium text-gray-700"
                     >
@@ -180,6 +205,17 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
                       className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
                     />
                   </div>
+
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden="true"
+                  />
 
                   <div>
                     <label
@@ -199,6 +235,8 @@ export function FeaturedPropertiesClient({ properties }: { properties: Property[
                       className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
                     />
                   </div>
+
+                  <Turnstile key={selectedProperty.id} onToken={setTurnstileToken} />
 
                   {submitStatus === "error" && (
                     <p className="text-sm text-red-600">

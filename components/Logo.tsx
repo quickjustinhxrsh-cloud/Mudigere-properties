@@ -2,11 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 export function Logo({
-  light = false,
   src,
   className = "h-14 w-auto object-contain",
 }: {
-  light?: boolean;
   src?: string | undefined;
   className?: string;
 }) {

@@ -55,13 +55,6 @@ body {
   @apply btn border border-forest bg-white text-forest hover:-translate-y-0.5 hover:bg-forest hover:text-white;
 }
 
-.eyebrow-line {
-  margin-top: 0.75rem;
-  width: 134px;
-  height: 0;
-  border-top: 2px solid var(--2nd-color, #3F302D);
-}
-
 .hero-section {
   @apply w-full h-screen relative overflow-hidden;
 }

@@ -36,9 +36,9 @@ export function PropertyTable() {
     }
 
     try {
-      await deleteProperty(property.id);
+      const result = await deleteProperty(property.id);
       setProperties((current) => current.filter((item) => item.id !== property.id));
-      setToast("Property deleted.");
+      setToast(result.cleanupWarning || "Property deleted.");
     } catch (deleteError) {
       setError(deleteError instanceof Error ? deleteError.message : "Could not delete property.");
     }

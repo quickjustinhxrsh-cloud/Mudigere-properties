@@ -10,7 +10,6 @@ import { supabase } from "@/lib/supabase";
 export function PropertyExplorer({ initialProperties = propertyGrid }: { initialProperties?: Property[] }) {
   const [query, setQuery] = useState("");
   const [properties, setProperties] = useState(initialProperties);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selected, setSelected] = useState<Property | null>(null);
   const [slide, setSlide] = useState(0);
@@ -21,7 +20,6 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
   useEffect(() => {
     let mounted = true;
     const refreshProperties = () => {
-      setLoading(true);
       getProperties()
         .then((data) => {
           if (mounted) {
@@ -32,15 +30,9 @@ export function PropertyExplorer({ initialProperties = propertyGrid }: { initial
           if (mounted) {
             setError(loadError instanceof Error ? loadError.message : "Could not load properties.");
           }
-        })
-        .finally(() => {
-          if (mounted) {
-            setLoading(false);
-          }
         });
     };
 
-    setLoading(true);
     refreshProperties();
 
     const channel = supabase

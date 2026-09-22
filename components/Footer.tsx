@@ -16,7 +16,7 @@ export function Footer({ logo }: { logo?: string }) {
     <footer className="bg-forest text-white">
       <div className="container-pad grid gap-8 py-10 md:grid-cols-[1.15fr_0.8fr_1.05fr] md:items-stretch">
         <div className="flex h-full flex-col items-center justify-center text-center md:pr-6 md:border-r md:border-white/90">
-          <Logo light src={logo || undefined} className="mx-auto h-28 w-auto object-contain" />
+          <Logo src={logo || undefined} className="mx-auto h-28 w-auto object-contain" />
           <p className="mt-5 max-w-xs text-xl leading-6 text-white/85">
             <span className="whitespace-nowrap">Premium Properties Surrounded</span>
             <br />
@@ -57,11 +57,21 @@ export function Footer({ logo }: { logo?: string }) {
       </div>
       <div className="border-t border-white/10 bg-[#3a2724] py-3 px-5 flex flex-col items-center justify-center gap-6 text-xs text-white/70 md:flex-row">
         <div className="flex items-center justify-center gap-3 text-white/75">
-          {[Instagram, Facebook, Linkedin].map((Icon, index) => (
+          {[
+            {
+              Icon: Instagram,
+              href: "https://www.instagram.com/mudigereproperties/",
+              label: "Follow Mudigere Properties on Instagram"
+            },
+            { Icon: Facebook, href: "#", label: "Facebook profile" },
+            { Icon: Linkedin, href: "#", label: "LinkedIn profile" }
+          ].map(({ Icon, href, label }) => (
             <a
-              key={index}
-              href="#"
-              aria-label="Social profile"
+              key={label}
+              href={href}
+              aria-label={label}
+              target={href === "#" ? undefined : "_blank"}
+              rel={href === "#" ? undefined : "noreferrer"}
               className="flex h-9 w-9 items-center justify-center rounded border border-white/20 transition hover:bg-white hover:text-forest"
             >
               <Icon className="h-4 w-4" />

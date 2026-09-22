@@ -26,9 +26,13 @@ NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 SUPABASE_SERVICE_ROLE_KEY
 NEXT_PUBLIC_CLOUDINARY_IMAGE_BASE_URL
+NEXT_PUBLIC_TURNSTILE_SITE_KEY
+TURNSTILE_SECRET_KEY
 ```
 
 `SUPABASE_SERVICE_ROLE_KEY` is server-only. Never prefix it with `NEXT_PUBLIC_`, share it in messages, or store it in GitHub.
+
+`TURNSTILE_SECRET_KEY` is also server-only. Create a Cloudflare Turnstile widget for the production domain, set both Turnstile variables in Vercel, and redeploy. Until those keys are configured, the inquiry forms retain their honeypot and database rate limit without showing a Turnstile challenge.
 
 ## Supabase security checklist
 

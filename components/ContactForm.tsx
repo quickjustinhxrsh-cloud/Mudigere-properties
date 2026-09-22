@@ -3,11 +3,14 @@
 import { Mail, Phone, User, MessageSquare } from "lucide-react";
 import { FormEvent, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { Turnstile } from "@/components/Turnstile";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [formVersion, setFormVersion] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -28,7 +31,7 @@ export function ContactForm() {
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, website: String(form.get("website") || "") })
+        body: JSON.stringify({ ...payload, website: String(form.get("website") || ""), turnstileToken })
       });
       const result = await response.json().catch(() => null);
       if (!response.ok) {
@@ -43,6 +46,8 @@ export function ContactForm() {
     setLoading(false);
     setSubmitted(true);
     formRef.current?.reset();
+    setTurnstileToken("");
+    setFormVersion((version) => version + 1);
     
     // Redirect to properties page with submitted parameter
     router.push("/properties?submitted=true");
@@ -75,7 +80,6 @@ export function ContactForm() {
         >
           Send Us A Message
         </h2>
-        <div className="eyebrow-line" />
         <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field icon={User} name="full_name" placeholder="Full Name" required />
           <Field icon={Phone} name="phone" placeholder="Phone Number" required />
@@ -90,6 +94,9 @@ export function ContactForm() {
               className="w-full rounded border border-forest/30 px-11 py-3 text-sm outline-none transition focus:border-forest focus:ring-2 focus:ring-forest/20"
             />
           </label>
+        </div>
+        <div className="mt-5">
+          <Turnstile key={formVersion} onToken={setTurnstileToken} />
         </div>
         <button type="submit" disabled={loading} className="btn-primary mt-5 w-full disabled:cursor-wait disabled:opacity-70">
           {loading ? "Submitting..." : "Submit Inquiry"}

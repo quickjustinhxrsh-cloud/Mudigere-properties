@@ -1,4 +1,5 @@
 import { images } from "@/lib/images";
+import { getPropertyMediaPaths } from "@/lib/property-media";
 import { isSupabaseUnavailableError, supabase } from "@/lib/supabase";
 
 export type PropertyStatus = "draft" | "published";
@@ -275,6 +276,15 @@ export async function deleteProperty(id: string | number) {
     throw new Error("Supabase is not configured.");
   }
 
+  const { data: property, error: readError } = await supabase
+    .from("properties")
+    .select("images, videos")
+    .eq("id", id)
+    .single();
+  if (readError) {
+    throw new Error(readError.message);
+  }
+
   const { error } = await supabase
     .from("properties")
     .delete()
@@ -284,5 +294,14 @@ export async function deleteProperty(id: string | number) {
     throw new Error(error.message);
   }
 
-  return true;
+  const mediaUrls = [...(property.images ?? []), ...(property.videos ?? [])];
+  const mediaPaths = getPropertyMediaPaths(mediaUrls, process.env.NEXT_PUBLIC_SUPABASE_URL ?? "");
+  if (!mediaPaths.length) {
+    return { cleanupWarning: "" };
+  }
+
+  const { error: storageError } = await supabase.storage.from("property-media").remove(mediaPaths);
+  return {
+    cleanupWarning: storageError ? "The listing was deleted, but some uploaded media could not be removed." : ""
+  };
 }
