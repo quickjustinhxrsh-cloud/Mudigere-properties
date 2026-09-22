@@ -23,7 +23,7 @@ export default async function PropertiesPage() {
       <section className="section-pad">
         <div className="container-pad">
           <h1 className="text-[clamp(2rem,9vw,3rem)] font-bold leading-tight text-forest lg:pl-[150px]">Our Properties</h1>
-          <p className="mt-4 max-w-3xl text-lg font-medium leading-snug text-[#1f1f1f] sm:text-2xl lg:pl-[150px] lg:text-[32px] lg:leading-none">
+          <p className="mt-4 max-w-[1000px] text-lg font-medium leading-snug text-[#1f1f1f] sm:text-2xl lg:ml-[150px] lg:text-[28px] lg:leading-[1.15]">
             Explore premium Coffee estates, Resorts, Villas and investment
             <br />
             opportunities in Malnad Region
